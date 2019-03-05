@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from testicles.providers.models import ServiceProvider, ServiceProviderForm
+from .models import ServiceProvider, ServiceProviderForm
 
 # Register your models here.
 

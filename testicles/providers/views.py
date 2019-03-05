@@ -5,4 +5,4 @@ from .models import ServiceProviderForm
 
 def provider_view(request):
     form = ServiceProviderForm()
-    return render(request, '/providers/form.html', {'form':form} )   
+    return render(request, 'providers/form.html', {'form':form} )   

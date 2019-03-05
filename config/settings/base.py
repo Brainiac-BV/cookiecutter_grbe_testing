@@ -74,8 +74,8 @@ THIRD_PARTY_APPS = [
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [
-    'testicles.users.apps.UsersAppConfig',
-    'testicles.providers.apps.ProvidersConfig',
+    'users.apps.UsersAppConfig',
+    'providers.apps.ProvidersConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

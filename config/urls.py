@@ -17,12 +17,15 @@ urlpatterns = [
     # User management
     path(
         "users/",
-        include("testicles.users.urls", namespace="users"),
+        include("users.urls", namespace="users"),
     ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     # Provider App
-    path("providers/", include("testicles.providers.urls"))
+    path(
+        "providers/", 
+        include("providers.urls", namespace="providers"),
+    ),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

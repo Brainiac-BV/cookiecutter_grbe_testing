@@ -6,7 +6,7 @@ from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
-class ServiceProvider(models.Model):
+class ServiceProvider(models.Model, users.Users):
     # Inheriting methods from user, using to extend for providers
     # Get user info from user app
     user_info = models.OneToOneField('users.User', 
@@ -27,10 +27,11 @@ class ServiceProvider(models.Model):
                                  choices=AVAILABLE_SERVICES, 
                                  default=DEFAULT_CHOICE,))
 
+    dates_available = ArrayField(models.DateTimeField())
     
     class Meta:
         pass
-        #app_label = 'testicles.providers'                             
+        #app_label = 'providers'                             
         
     
     '''
@@ -48,6 +49,7 @@ class Services(models.Model):
 
 class ServiceProviderForm(forms.ModelForm):
     services_chosen = forms.MultipleChoiceField(choices=ServiceProvider.AVAILABLE_SERVICES)
+    #dates_available = forms.
     
     class Meta:
         model = ServiceProvider
