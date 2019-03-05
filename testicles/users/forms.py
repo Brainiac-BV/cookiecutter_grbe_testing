@@ -36,7 +36,7 @@ class UserCreationForm(forms.UserCreationForm):
 
         raise ValidationError(self.error_messages["duplicate_username"])
 
-
+# Created to capture zip code during signup
 class CustomSignupForm(SignupForm):
     zip_code = CharField(label="Zip Code",
                                max_length=5,

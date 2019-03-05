@@ -1,7 +1,12 @@
 from django.contrib import admin
 
-from .models import ServiceProvider, Services
+from testicles.providers.models import ServiceProvider, ServiceProviderForm
+
 # Register your models here.
 
-admin.site.register(Services)
-admin.site.register(ServiceProvider)
+
+#admin.site.register(ServiceProvider)
+@admin.register(ServiceProvider)
+class ServiceProviderAdmin(admin.ModelAdmin):
+    form = ServiceProviderForm
+

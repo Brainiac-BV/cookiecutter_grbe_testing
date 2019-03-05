@@ -21,6 +21,8 @@ urlpatterns = [
     ),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    # Provider App
+    path("providers/", include("testicles.providers.urls"))
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )
