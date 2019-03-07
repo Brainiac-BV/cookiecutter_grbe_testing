@@ -24,7 +24,7 @@ urlpatterns = [
     # Provider App
     path(
         "providers/", 
-        include("providers.urls", namespace="providers"),
+        include("providers.urls", namespace="service_providers"),
     ),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT

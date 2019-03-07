@@ -1,12 +1,15 @@
 from django.contrib import admin
-
-from .models import ServiceProvider, ServiceProviderForm
+from django.contrib.auth import get_user_model
+from .models import ServiceProviders
+#from .forms import ServiceProviderForm
 
 # Register your models here.
 
 
-#admin.site.register(ServiceProvider)
-@admin.register(ServiceProvider)
+
+#admin.site.register(ServiceProviders)
+@admin.register(ServiceProviders)
 class ServiceProviderAdmin(admin.ModelAdmin):
-    form = ServiceProviderForm
+     fields = ['services_chosen']
+ #   form = ServiceProviderForm
 

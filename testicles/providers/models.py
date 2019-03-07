@@ -1,16 +1,19 @@
+from django.conf import settings
 from django.db import models
-from django import forms
-
-
 from django.contrib.postgres.fields import ArrayField
+
+
+from users.models import User
+
+
 
 # Create your models here.
 
-class ServiceProvider(models.Model, users.Users):
+class ServiceProviders(models.Model):
     # Inheriting methods from user, using to extend for providers
     # Get user info from user app
-    user_info = models.OneToOneField('users.User', 
-        on_delete='cascade',
+    user_info = models.OneToOneField(settings.AUTH_USER_MODEL, 
+        on_delete=models.CASCADE,
         blank=True, null=True,
         )
     
@@ -27,12 +30,7 @@ class ServiceProvider(models.Model, users.Users):
                                  choices=AVAILABLE_SERVICES, 
                                  default=DEFAULT_CHOICE,))
 
-    dates_available = ArrayField(models.DateTimeField())
-    
-    class Meta:
-        pass
-        #app_label = 'providers'                             
-        
+    #dates_available = models.DateTimeField(blank=True, null=True)        
     
     '''
     services_provided = models.ManyToManyField('Services',
@@ -47,10 +45,3 @@ class Services(models.Model):
     
 '''
 
-class ServiceProviderForm(forms.ModelForm):
-    services_chosen = forms.MultipleChoiceField(choices=ServiceProvider.AVAILABLE_SERVICES)
-    #dates_available = forms.
-    
-    class Meta:
-        model = ServiceProvider
-        fields = "__all__"
