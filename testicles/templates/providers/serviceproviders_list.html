@@ -8,8 +8,8 @@
 
   <div class="list-group">
     {% for provider in serviceproviders_list %}
-      <a href="{% url 'providers:detail' pk=serviceproviders.id %}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{ provider.user_info_id }}</h4>
+      <a href="{% url 'providers:detail' provider.user_info_id %}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ provider.user_info.username }}</h4>
       </a>
     {% endfor %}
   </div>

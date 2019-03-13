@@ -21,8 +21,8 @@ provider_view = ProviderView.as_view()
 
 class ProviderListView(ListView):
     model = ServiceProviders
-    slug_field = "user_info"
-    slug_url_kwarg = "username"
+    #slug_field = "user_info"
+    #slug_url_kwarg = "username"
 
 
 provider_list_view = ProviderListView.as_view()
@@ -32,4 +32,4 @@ class ProviderDetailView(DetailView):
     slug_field = "user_info_id"
     slug_url_kwarg = "user_info_id"
 
-provider_detail_view = ProviderDetailView.as_view()    
+provider_detail_view = ProviderDetailView.as_view()

@@ -11,5 +11,6 @@ from .models import ServiceProviders
 @admin.register(ServiceProviders)
 class ServiceProviderAdmin(admin.ModelAdmin):
      fields = ['services_chosen', 'user_info',]
+     list_display = ["user_info"]
  #   form = ServiceProviderForm
 
