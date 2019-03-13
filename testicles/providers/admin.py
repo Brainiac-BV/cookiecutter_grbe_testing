@@ -10,6 +10,6 @@ from .models import ServiceProviders
 #admin.site.register(ServiceProviders)
 @admin.register(ServiceProviders)
 class ServiceProviderAdmin(admin.ModelAdmin):
-     fields = ['services_chosen']
+     fields = ['services_chosen', 'user_info',]
  #   form = ServiceProviderForm
 
