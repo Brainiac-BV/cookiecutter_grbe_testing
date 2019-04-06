@@ -14,13 +14,9 @@ class ServiceProviders(models.Model):
     # Get user info from user app
     user_info = models.OneToOneField(settings.AUTH_USER_MODEL, 
         on_delete=models.CASCADE,
-        blank=True,
-        primary_key=True,
+        blank=True, null=True, 
         )
     
-    def get_username(self):
-        return self.user_info.username
-         
     DEFAULT_CHOICE = "No Services"
     
     AVAILABLE_SERVICES = (
@@ -36,7 +32,6 @@ class ServiceProviders(models.Model):
 
     #dates_available = models.DateTimeField(blank=True, null=True)        
     
-    #def __str__(self)
     '''
     services_provided = models.ManyToManyField('Services',
         help_text='select the services you would like to provide',

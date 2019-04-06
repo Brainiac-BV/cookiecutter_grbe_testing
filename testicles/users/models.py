@@ -15,7 +15,7 @@ class User(AbstractUser):
         default=False
         )
     #provider_info = models.ManyToManyField('providers.ServiceProvider')
-    
+    profile_pic = models.ImageField(upload_to="images", blank=True, null=True)
     def is_service_provider(self):
         return self.service_provider_status
 
