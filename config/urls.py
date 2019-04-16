@@ -26,6 +26,8 @@ urlpatterns = [
         "providers/", 
         include("providers.urls", namespace="service_providers"),
     ),
+    path("messages/", 
+    include("postman.urls", namespace='postman')),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

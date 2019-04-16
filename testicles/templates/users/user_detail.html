@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bootstrap4 %}
 
 {% block title %}User: {{ object.username }}{% endblock %}
 
@@ -10,8 +11,10 @@
     <div class="col-sm-12">
 
       <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
+      {% if object.name and object.profile_pic %}
+        <p><img src="{{ object.profile_pic.url }}" /> {{ object.name }}</p>
+      {% elif object.name and not object.profile_pic %}
+        <p>{{ object.name }}</p>  
       {% endif %}
       <p>{{ object.test }}
     </div>
@@ -19,19 +22,40 @@
 
 {% if object == request.user %}
 <!-- Action buttons -->
-<div class="row">
+<div class="container">
+  <div class="row">
+<div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+  <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+  <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+  <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+  <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+</div>
+<div class="tab-content" id="v-pills-tabContent">
+  <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...</div>
+  <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" data-src="{% url 'users:update' %}">
+    <iframe src="{% url 'users:update' %}" width="800" height="800" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+  </div>
+  <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+</div>
 
   <div class="col-sm-12">
     <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
     <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
     <!-- Your Stuff: Custom user template urls -->
   </div>
-
+  </div>
 </div>
+{% else %}
 <!-- End Action buttons -->
 {% endif %}
-
+<div class="container"> 
+  <div class="mx-auto" style="width: 600px;">
+    <textarea></textarea>
+  </div>
+</div>
 
 </div>
 {% endblock content %}
+
 

@@ -71,6 +71,9 @@ THIRD_PARTY_APPS = [
     #'allauth.socialaccount.providers.facebook',
     #'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.twitter',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'postman',
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [
@@ -194,6 +197,7 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                # Other context
             ],
         },
     },

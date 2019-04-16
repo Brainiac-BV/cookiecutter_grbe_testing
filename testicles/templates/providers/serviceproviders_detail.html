@@ -11,28 +11,33 @@
 
       <h2>{{ object.user_info.username }}</h2>
       {#% if object.name %#}
-        <p>{{ object.services_chosen }}</p>
+        <p>{{ object.about_me }}</p>
       {#% endif %#}
       <p>{{ object.test }}
+      <p>{{ request.user }}</p>
+      <p>{{ object.user_info.username }}</p>
     </div>
   </div>
+    <p>{{ now }}</p>
 
-{% if object == request.user %}
-
+  
+{% if object.user_info.username == request.user %}  
+<iframe src='/request'></iframe>
+<div class="container">
 <!-- Action buttons -->
-<div class="row">
+  <div class="row">
 
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
+    <div class="col-sm-12">
+      <a class="btn btn-primary" href="{% url 'providers:provider_view' %}" role="button">My Info</a>
+      <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
+      <!-- Your Stuff: Custom user template urls -->
+    </div>
   </div>
-
 </div>
+
 <!-- End Action buttons -->
+<h2>{{ object.about_me }}</h2> 
 {% endif %}
-
-
 </div>
 {% endblock content %}
 

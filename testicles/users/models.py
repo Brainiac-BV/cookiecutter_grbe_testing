@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from providers import models as provider_model
 
 
 class User(AbstractUser):
@@ -15,7 +16,12 @@ class User(AbstractUser):
         default=False
         )
     #provider_info = models.ManyToManyField('providers.ServiceProvider')
-    profile_pic = models.ImageField(upload_to="images", blank=True, null=True)
+    profile_pic = models.ImageField(upload_to="images", 
+                    max_length=100, blank=True, null=True)
+    
+    # appointments scheduled by user. Used to link user to appt and on the other side appt to provider
+    #appointments = 
+
     def is_service_provider(self):
         return self.service_provider_status
 

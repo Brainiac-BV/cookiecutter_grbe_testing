@@ -1,0 +1,23 @@
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+
+
+{% block content %}
+ <form class="form-horizontal" method="post" action="{% url 'providers:provider_request' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="contianer">
+        <div class="form-row align-items-center">
+            {% bootstrap_form form %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+    
+  </form>
+{% endblock content %}
