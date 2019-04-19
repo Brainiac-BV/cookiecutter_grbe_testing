@@ -7,11 +7,21 @@
   <h2>Providers</h2>
 
   <div class="list-group">
+    <div class=row>
     {% for provider in serviceproviders_list %}
+      {% if provider.user_info.profile_pic %}
+      <img src="{{ provider.user_info.profile_pic.url }}" class="img-thumbnail" />
+
       <a href="{% url 'providers:detail' provider.user_info_id %}" class="list-group-item">
         <h4 class="list-group-item-heading">{{ provider.user_info.username }}</h4>
       </a>
+      {% else %}
+      <a href="{% url 'providers:detail' provider.user_info_id %}" class="list-group-item">
+        <h4 class="list-group-item-heading">{{ provider.user_info.username }}</h4>
+      </a>
+      {% endif %}
     {% endfor %}
+    </div>
   </div>
 </div>
 {% endblock content %}

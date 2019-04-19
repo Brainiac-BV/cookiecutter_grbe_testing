@@ -18,25 +18,26 @@
       <p>{{ object.user_info.username }}</p>
     </div>
   </div>
-    <p>{{ now }}</p>
+    <p>{{ form.as_p }}</p>
 
   
-{% if object.user_info.username == request.user %}  
-<iframe src='/request'></iframe>
+{% if request.user == object.user_info %}  
+
 <div class="container">
 <!-- Action buttons -->
   <div class="row">
 
     <div class="col-sm-12">
-      <a class="btn btn-primary" href="{% url 'providers:provider_view' %}" role="button">My Info</a>
+      <a class="btn btn-primary" href="{% url 'providers:provider_view' object.user_info_id %}" role="button">My Info</a>
       <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
       <!-- Your Stuff: Custom user template urls -->
     </div>
   </div>
 </div>
-
-<!-- End Action buttons -->
 <h2>{{ object.about_me }}</h2> 
+<!-- End Action buttons -->
+{% elif request.user != object.user_info %}
+<h2>Not the user</h2>
 {% endif %}
 </div>
 {% endblock content %}
