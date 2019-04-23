@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
 
 {% block title %}User: {{ object.user_info.username }}{% endblock %}
 
@@ -18,8 +23,20 @@
       <p>{{ object.user_info.username }}</p>
     </div>
   </div>
-    <p>{{ form.as_p }}</p>
-
+   <form class="form-horizontal" method="post" >
+    {% csrf_token %}
+    <div class="contianer">
+        <div class="form-row align-items-center">
+            {% bootstrap_form form %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+    
+  </form>
   
 {% if request.user == object.user_info %}  
 
