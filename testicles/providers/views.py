@@ -43,7 +43,7 @@ class ProviderDetailView(DetailView):
     #slug_url_kwarg = "user_info_id"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = RequestForm(initial={'provider_id': self.slug_field})
+        context['form'] = RequestForm()
         return context
 
 provider_detail_view = ProviderDetailView.as_view()
@@ -74,3 +74,12 @@ class ProviderDetail(View):
     def post(self, request, *args, **kwargs):
         view = ProviderRequestFormView.as_view()
         return view(request, *args, **kwargs)
+
+
+class ProviderRequestFormList(ListView):
+    model = Request
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['req_index'] = len(self.get_queryset())
+        return context
