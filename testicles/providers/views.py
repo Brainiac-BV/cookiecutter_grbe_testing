@@ -79,7 +79,13 @@ class ProviderDetail(View):
 class ProviderRequestFormList(ListView):
     model = Request
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['req_index'] = len(self.get_queryset())
-        return context
+    def get_queryset(self):
+        """ Returns requests based on logged in provider_id"""
+        provider = self.request.user.serviceproviders.pk
+        return Request.objects.filter(provider_id=provider).order_by('start_date')
+
+class ProviderRequestDecison(UpdateView):
+    model = Request
+    fields = ['accepted',]
+    template_name = "providers/request_decision.html"
+
