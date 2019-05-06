@@ -1,23 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-<div class="row text-align-center">
-<h2 class="align-center">Appointment Request</h2>
-</div>
 <div class="row">
-<ul class="list-group">
-<li class="list-group-item">For: {{ object.requesting_user }} </li>
-<li class="list-group-item">Date: {{ object.start_date }} </li>
-<li class="list-group-item">Time: {{ object.start_time }} </li>
-<li class="list-group-item">Service: {{ object.requested_service }} - {{ object.sub_service }} </li>
-</ul>
+<h2 class="text-center">Appointment Request</h2>
 </div>
-</div>
-<br>
-<br>
 
-<div class=card>
+<div class="container">
+    <div class="row">
+        <div class="card w-50 text-center profile-card">
+            <ul class="list-group">
+                <li class="list-group-item">For: {{ object.requesting_user }} </li>
+                <li class="list-group-item">Date: {{ object.start_date }} </li>
+                <li class="list-group-item">Time: {{ object.start_time }} </li>
+                <li class="list-group-item">Service: {{ object.requested_service }} - {{ object.sub_service }} </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<div class="container">
+<div class="row" class="auto-mx">
+<div class="card card-center profile-card">
 <h5 class="card-header">Status</h5>
 <div class="card-body">
 {% if object.accepted == None %}
@@ -28,6 +33,8 @@
 {% elif object.accepted == False %}
 <h3>You declined this request</h3>
 {% endif %}
+</div>
+</div>
 </div>
 </div>
 {% endblock content %}

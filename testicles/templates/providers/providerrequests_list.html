@@ -2,6 +2,7 @@
 
 {% block content %}
     <h1 class="text-center">My Requests</h1>
+    <div class="card w-100">
     <table class="table table-bordered" id="request_table">
         <thead class="table-primary">
             <tr>
@@ -28,5 +29,5 @@
         <h2>No Requests to Display.</h2>
         {% endif %}
     </table>
-    {{ req_index }}
+    </div>
 {% endblock content %}
