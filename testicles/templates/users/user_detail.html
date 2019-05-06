@@ -26,11 +26,10 @@
     <div class="container">
         <div class="row">
                 <div class="card text-center w-100 profile-card">
-                <h5 class="card-header">Edit Profile</h5>
+                <h5 class="card-header">Profile</h5>
                 <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="{% url 'users:update' %}" class="btn btn-md btn-info">Edit</a>
+                <p class="card-text">Use the below link to edit your profile</p>
+                <a href="{% url 'users:update' %}" class="btn btn-md btn-info btn-lg">Edit</a>
                 </div>
         </div>
     </div>
@@ -51,12 +50,23 @@
                 <div class="card text-center w-100 profile-card">
                 <h5 class="card-header">Provider Profile</h5>
                 <div class="card-body">
-                <p class="card-text">Use the below button to edit your Provider profile</p>
-                <a href="{% url 'providers:test' object.serviceproviders.pk %}" class="btn btn-md btn-info">Edit</a>
+                <p class="card-text">Go to your Provider Dashboard</p>
+                <a href="{% url 'providers:test' object.serviceproviders.pk %}" class="btn btn-md btn-info btn-lg">Go</a>
                 </div>
         </div>
     </div>
-{% endif %}    
+{% endif %}
+    <div class="container">    
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Delete Account</h5>
+                <div class="card-body">
+                <p class="card-text">Use the below link to delete your account</p>
+                <p class="card-text"><span class="text-danger">Remember that this is permanent!!!</span></p>
+                <a href="{% url 'account_reset_password' %}" class="btn btn-danger btn-lg">Edit</a>
+                </div>
+        </div>
+    </div>
         <div class="col-sm-9 col-md-6">
         {% block usercontent %}{% endblock %}
         </div>

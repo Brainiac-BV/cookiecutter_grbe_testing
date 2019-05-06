@@ -27,8 +27,9 @@ class ServiceProviders(models.Model):
     default='Fuck It'
     )
     
-    # Associate appointments with chosen provider
-    #appointments = models.ManyToManyField('Appointments')
+    # Get count of services provided
+    def service_count(self):
+        return len(self.services_provided)
 
 class Services(models.Model):
     """
