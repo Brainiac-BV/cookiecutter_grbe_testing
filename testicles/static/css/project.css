@@ -12,6 +12,16 @@
   border-color: #eed3d7;
 }
 
+body {
+  background-color: #F2EDE3;
+}
+
+.profile-card {
+  margin: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
 .nav.nav-tabs {
   float: left;
   display: block;

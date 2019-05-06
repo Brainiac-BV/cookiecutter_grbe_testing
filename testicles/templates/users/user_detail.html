@@ -5,44 +5,58 @@
 
 {% block content %}
 <div class="row">
+<div class="card>
     <div class="col-sm-12 col-md-8 col-md-offset-2">
-        <h1>{% block title %}User: {{ object.username }}{% endblock %}</h1>
-    </div>
+        <h1>{% block title %}Hey {{ object.username }}!{% endblock %}</h1>
+    </div>    
 </div>
 <div class="row">
-    <div class="col-sm-12">
-
-      <h2>{{ object.username }}</h2>
+    <div class="col-lg-12">
       {% if object.name and object.profile_pic %}
         <p><img src="{{ object.profile_pic.url }}" /> {{ object.name }}</p>
-      {% elif object.name and not object.profile_pic %}
+      {% elif object.name %}
         <p>{{ object.name }}</p>  
       {% endif %}
       <p>{{ object.test }}
     </div>
   </div>
+  </div>
 
 {% if object == request.user %}
-<div class="row">
-    <div class="col-sm-3 col-md-2 col-md-offset-2">
-        <ul class="nav nav-pills nav-stacked">
-            <li{% if active_tab == "profile" %} class="active"{% endif%}>
-                <a href="">Profile</a>
-            </li>
-            <li{% if active_tab == "change_password" %} class="active"{% endif %}>
-                <a href="">Change Password</a>
-            </li>
-            <li{% if active_tab == "api_tokens" %} class="active"{% endif %}>
-                <a href="">API Tokens</a>
-            </li>
-            <li{% if active_tab == "userkey" %} class="active"{% endif %}>
-                <a href="{% url 'users:update' %}">User Key</a>
-            </li>
-            <li{% if active_tab == "recent_activity" %} class="active"{% endif %}>
-                <a href="{% url 'account_email' %}">Recent Activity</a>
-            </li>
-        </ul>
+    <div class="container">
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Edit Profile</h5>
+                <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="{% url 'users:update' %}" class="btn btn-md btn-info">Edit</a>
+                </div>
+        </div>
     </div>
+    <div class="container">    
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Change Password</h5>
+                <div class="card-body">
+                <p class="card-text">Use the below link to change your password</p>
+                <p class="card-text">Remember to use a secure password!</p>
+                <a href="{% url 'account_reset_password' %}" class="btn btn-info btn-lg">Edit</a>
+                </div>
+        </div>
+    </div>
+{% if object.serviceproviders %}    
+    <div class="container">
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Provider Profile</h5>
+                <div class="card-body">
+                <p class="card-text">Use the below button to edit your Provider profile</p>
+                <a href="{% url 'providers:test' object.serviceproviders.pk %}" class="btn btn-md btn-info">Edit</a>
+                </div>
+        </div>
+    </div>
+{% endif %}    
         <div class="col-sm-9 col-md-6">
         {% block usercontent %}{% endblock %}
         </div>

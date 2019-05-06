@@ -1,7 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Appointment Request</h2>
-<p>Date: {{ object.start_date }} </p>
-{{form.as_p}}
+<div class="container">
+<div class="row text-align-center">
+<h2 class="align-center">Appointment Request</h2>
+</div>
+<div class="row">
+<ul class="list-group">
+<li class="list-group-item">For: {{ object.requesting_user }} </li>
+<li class="list-group-item">Date: {{ object.start_date }} </li>
+<li class="list-group-item">Time: {{ object.start_time }} </li>
+<li class="list-group-item">Service: {{ object.requested_service }} - {{ object.sub_service }} </li>
+</ul>
+</div>
+</div>
+<br>
+<br>
+
+<div class=card>
+<h5 class="card-header">Status</h5>
+<div class="card-body">
+{% if object.accepted == None %}
+<h5 class="card-title">You Have Not Responded Yet</h5>
+{% include "providers/decision_form.html" %}
+{% elif object.accepted == True %}
+<h3>You are scheduled to do {{ object.requested_service }} for {{ object.requesting_user }} on {{ object.start_date }}</h3>
+{% elif object.accepted == False %}
+<h3>You declined this request</h3>
+{% endif %}
+</div>
+</div>
 {% endblock content %}

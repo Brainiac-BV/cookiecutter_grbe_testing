@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, ListView, DetailView, CreateView, FormView
 from django.views import View
+from django.core.mail import send_mail
 from django.views.generic.detail import SingleObjectMixin
 from django.forms import Select
 from django.utils import timezone
-from .models import ServiceProviders, Request
+from .models import ServiceProviders, ProviderRequests
 from .forms import RequestForm
 
 
@@ -50,7 +51,7 @@ provider_detail_view = ProviderDetailView.as_view()
 
 class ProviderRequestFormView(CreateView):
     form_class = RequestForm
-    model = Request
+    model = ProviderRequests
     #fields = ['start_date', 'start_time', 'requested_service', 'sub_service',]
     
     def form_valid(self, form):
@@ -77,15 +78,35 @@ class ProviderDetail(View):
 
 
 class ProviderRequestFormList(ListView):
-    model = Request
+    model = ProviderRequests
 
     def get_queryset(self):
         """ Returns requests based on logged in provider_id"""
         provider = self.request.user.serviceproviders.pk
-        return Request.objects.filter(provider_id=provider).order_by('start_date')
+        return ProviderRequests.objects.filter(provider_id=provider).order_by('start_date')
 
 class ProviderRequestDecison(UpdateView):
-    model = Request
+    model = ProviderRequests
     fields = ['accepted',]
     template_name = "providers/request_decision.html"
+    #success_url = reverse_lazy('providers:list')
+   
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            if 'accept' in request.POST:
+                send_mail('test', 'test message', 'admin@grbe.co', ['k.dgray23@gmail.com'])
+                return super().post(request, *args, **kwargs)    
+            elif 'deny' in request.POST:
+                send_mail('test', 'test message 2', 'admin@grbe.co', ['k.dgray23@gmail.com'])
+                return super().post(request, *args, **kwargs)             
 
+    def form_valid(self, form):
+        if 'accept' in self.request.POST:
+            form.instance.accepted = 'True'
+        if 'deny' in self.request.POST:
+            form.instance.accepted = 'False'
+        return super(ProviderRequestDecison, self).form_valid(form)
+
+
+    

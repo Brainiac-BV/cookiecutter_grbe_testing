@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <h1>{% block title %}User: {{ object.username }}{% endblock %}</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+
+      <h2>{{ object.username }}</h2>
+      {% if object.name and object.profile_pic %}
+        <p><img src="{{ object.profile_pic.url }}" /> {{ object.name }}</p>
+      {% elif object.name and not object.profile_pic %}
+        <p>{{ object.name }}</p>  
+      {% endif %}
+      <p>{{ object.test }}
+    </div>
+  </div>
+
+{% if object == request.user %}
+<div class="row">
+    <div class="col-sm-3 col-md-2 col-md-offset-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li{% if active_tab == "profile" %} class="active"{% endif%}>
+                <a href="">Profile</a>
+            </li>
+            <li{% if active_tab == "change_password" %} class="active"{% endif %}>
+                <a href="">Change Password</a>
+            </li>
+            <li{% if active_tab == "api_tokens" %} class="active"{% endif %}>
+                <a href="">API Tokens</a>
+            </li>
+            <li{% if active_tab == "userkey" %} class="active"{% endif %}>
+                <a href="{% url 'users:update' %}">User Key</a>
+            </li>
+            <li{% if active_tab == "recent_activity" %} class="active"{% endif %}>
+                <a href="{% url 'account_email' %}">Recent Activity</a>
+            </li>
+        </ul>
+    </div>
+        <div class="col-sm-9 col-md-6">
+        {% block usercontent %}{% endblock usercontent %}
+        </div>
+</div>
+{% endif %}
+{% endblock content %}

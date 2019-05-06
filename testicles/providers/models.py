@@ -104,7 +104,7 @@ class Appointments(models.Model):
         return self.name
 """
 
-class Request(models.Model):
+class ProviderRequests(models.Model):
     start_date = models.DateField()
     start_time = models.TimeField()
     requested_service = models.ForeignKey('Services', on_delete='CASCADE')
@@ -115,6 +115,7 @@ class Request(models.Model):
     )
     provider = models.ForeignKey('ServiceProviders', on_delete='CASCADE')
     created = models.DateTimeField(auto_now_add=True, blank=True)
+    accepted = models.NullBooleanField()
 
     def __str__(self):
         return self.requesting_user
@@ -123,4 +124,4 @@ class Request(models.Model):
         return self.requesting_user.name
 
     def get_absolute_url(self):
-        return reverse("providers:request")
+        return reverse("providers:provider_request" )

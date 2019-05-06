@@ -16,13 +16,21 @@ $black: #000;
 $pink: #f2dede;
 $dark-pink: #eed3d7;
 $red: #b94a48;
-
+$champagne: #F2EDE3;
 ////////////////////////////////
 		//Alerts//
 ////////////////////////////////
 
 // bootstrap alert CSS, translated to the django-standard levels of
 // debug, info, success, warning, error
+body {
+  background-color: $champagne;
+}
+
+.profile-card {
+  margin: 20px;
+  padding: 10px;
+}
 
 .alert-debug {
   background-color: $white;
