@@ -198,6 +198,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 # Other context
+                'postman.context_processors.inbox',
             ],
         },
     },
@@ -260,3 +261,16 @@ SOCIALACCOUNT_ADAPTER = 'testicles.users.adapters.SocialAccountAdapter'
 ACCOUNT_FORMS = {
 'signup': 'users.forms.CustomSignupForm',
 }
+
+
+# POSTMAN_I18N_URLS = True  # default is False
+POSTMAN_DISALLOW_ANONYMOUS = True  # default is False
+POSTMAN_DISALLOW_MULTIRECIPIENTS = True  # default is False
+# POSTMAN_DISALLOW_COPIES_ON_REPLY = True  # default is False
+# POSTMAN_DISABLE_USER_EMAILING = True  # default is False
+# POSTMAN_FROM_EMAIL = 'from@host.tld'  # default is DEFAULT_FROM_EMAIL
+# POSTMAN_PARAMS_EMAIL = get_params_email  # default is None
+POSTMAN_AUTO_MODERATE_AS = True  # default is None
+# POSTMAN_SHOW_USER_AS = 'get_full_name'  # default is None
+# POSTMAN_NAME_USER_AS = 'last_name'  # default is None
+POSTMAN_QUICKREPLY_QUOTE_BODY = True  # default is False

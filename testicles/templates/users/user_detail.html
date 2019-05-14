@@ -7,7 +7,7 @@
 <div class="row">
 <div class="card>
     <div class="col-sm-12 col-md-8 col-md-offset-2">
-        <h1 style="text-center">{% block title %}Hey {{ object.username }}!{% endblock %}</h1>
+        <h3 style="text-center">{% block title %}Hey {{ object.username }}!{% endblock %}</h3>
     </div>    
 </div>
 <div class="row">
@@ -64,11 +64,38 @@
             <div class="card-body">
               <p class="card-text">Use the below link to delete your account</p>
               <p class="card-text"><span class="text-danger">Remember that this is permanent!!!</span></p>
-              <a href="{% url 'account_reset_password' %}" class="btn btn-danger btn-lg">Delete</a>
+              <a href="{% url 'users:delete' object %}" class="btn btn-danger btn-lg">Delete</a>
             </div>
           </div>
         </div>
     </div>
-</div>    
+</div>
+<div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">Messages</h5>
+              <div class="card-body">
+                <p class="card-text">Manage your messages</p>
+                <a href="{% url 'postman:inbox' %}" class="btn btn-md btn-info btn-lg">Messages</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% for req in object.providerrequests_set.all %}
+      {{ req.start_date }}
+    {% endfor %}  
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">placeholder</h5>
+              <div class="card-body">
+                <p class="card-text">empty for now</p>
+                <a href="" class="btn btn-md btn-info btn-lg">Go</a>
+              </div>
+          </div>
+        </div>          
 {% endif %}
 {% endblock %}

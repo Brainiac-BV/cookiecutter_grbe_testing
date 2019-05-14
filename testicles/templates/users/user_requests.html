@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for req in object_list  %}
+<p>{{req.accepted}}</p>
+
+{% endfor %}
+
+{% endblock content %}

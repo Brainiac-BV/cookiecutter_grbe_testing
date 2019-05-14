@@ -15,10 +15,10 @@
     <h4>Hey {{ object.user_info.username }}!</h4>
     </div>
   </div>
-  {% if not request.user %}
+  {% if request.user %}
    <form class="form-horizontal" method="post" >
     {% csrf_token %}
-    <div class="contianer">
+    <div class="container">
         <div class="form-row align-items-center">
             {% bootstrap_form form %}
             <div class="control-group">
