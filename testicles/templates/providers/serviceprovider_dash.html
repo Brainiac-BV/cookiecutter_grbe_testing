@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Provider Dashboard {% endblock %}
+
+{% block content %}
+
+{% if request.user  %}  
+<h3>Hey {{ object.user_info.username }}</h3>
+{% if object.services_provided %}
+<div class="container">
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Services</h5>
+                <div class="card-body">
+                <p class="card-text">Use the below button to edit your Available Services</p>
+                <a href="" class="btn btn-md btn-info">Update</a>
+                </div>
+        </div>
+</div>
+{% endif %}
+<div class="container">    
+        <div class="row">
+                <div class="card text-center w-100 profile-card">
+                <h5 class="card-header">Manage Requests</h5>
+                <div class="card-body">
+                <p class="card-text">Use the below link to manage your requests</p>
+                <p class="card-text">You can view your Service Requests and take action on them</p>
+                <a href="{% url 'providers:provider_request' %}" class="btn btn-info btn-lg">Manage</a>
+                </div>
+        </div>
+    </div>
+    {% for obj in object.services_provided.services_id %}
+    {{ obj }}
+    {% endfor %}
+{{ object.services_provided.services_id }}
+{% endif %}
+{% endblock content %}

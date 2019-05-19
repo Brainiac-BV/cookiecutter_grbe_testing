@@ -1,70 +1,68 @@
 {% extends "base.html" %}
 {% load static %}
 {% load bootstrap4 %}
-{% load crispy_forms_tags %}
-{% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
-{{ form.media }}
+{% block extrahead %}
 
-{% block title %}Provider Dashboard {% endblock %}
+{{ form.media }}
+{% endblock %}
+
+{% block title %}{{ object.user_info.username }}'s Details {% endblock %}
 
 {% block content %}
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-    <h4>Hey {{ object.user_info.username }}!</h4>
+    {% if provider.user_info.profile_pic.url %}
+     <div class="img-thumbnail">
+        <img src="{{ provider.user_info.profile_pic.url }}" />
+      </div>
+    {% else %}
+    <p>No Pic!</p>
+    {% endif %}
+     
+      <h4>{{ object.user_info.username }}</h4>
     </div>
   </div>
-  {% if request.user %}
-   <form class="form-horizontal" method="post" >
-    {% csrf_token %}
-    <div class="container">
-        <div class="form-row align-items-center">
-            {% bootstrap_form form %}
-            <div class="control-group">
-                <div class="controls">
-                    <button type="submit" class="btn">Update</button>
-                </div>
-            </div>
+</div>  
+<div class="card">
+  <div class="card-header">
+    <h5>About Me</h5>
+  </div>
+  <h4 style="text-align:center;"> {{ object.about_me }} </h4>
+</div>  
+  <div class="card">
+   
+    
+   <form method="post" > 
+   {% csrf_token %}
+    
+        <div class="form-row">
+          <div class="col-sm-3">
+          {{ form.start_date }}
         </div>
+        <div class="col-sm-3">
+          {{ form.start_time }}
+        </div>
+       <div class="col-sm-3">
+          {{ form.requested_service }}
+        </div>
+       
+        <div class="col-sm-3">
+          {{ form.sub_service }}
+        </div>  
+        <button type="submit" class="btn btn-info">Submit</button>
+                
+        
     </div>        
     
-  </form>
-  {% endif %}
-{% if request.user  %}  
+    </form>
+  </div>
 
-{% if object.services_provided %}
-<div class="container">
-        <div class="row">
-                <div class="card text-center w-100 profile-card">
-                <h5 class="card-header">Services</h5>
-                <div class="card-body">
-                <p class="card-text">Use the below button to edit your Available Services</p>
-                <a href="" class="btn btn-md btn-info">Update</a>
-                </div>
-        </div>
-</div>
-<div class="container">    
-        <div class="row">
-                <div class="card text-center w-100 profile-card">
-                <h5 class="card-header">Manage Requests</h5>
-                <div class="card-body">
-                <p class="card-text">Use the below link to manage your requests</p>
-                <p class="card-text">You can view your Service Requests and take action on them</p>
-                <a href="{% url 'providers:provider_request' %}" class="btn btn-info btn-lg">Manage</a>
-                </div>
-        </div>
-    </div>
-    {% for obj in object.services_provided.services_id %}
-    {{ obj }}
-    {% endfor %}
-{{ object.services_provided.services_id }}
-{% endif %}
+
 <!-- Action buttons --> 
 <!-- End Action buttons -->
-{% elif request.user != object.user_info %}
-<h2>Not the user</h2>
-{% endif %}
-</div>
+
 {% endblock content %}
+
 

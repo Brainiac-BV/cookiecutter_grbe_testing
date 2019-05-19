@@ -6,22 +6,70 @@
 <div class="container">
   <h2>Providers</h2>
 
-  <div class="list-group">
+  <div class="container-fluid" style="width: 100%">
     <div class=row>
-    {% for provider in serviceproviders_list %}
-      {% if provider.user_info.profile_pic %}
-      <img src="{{ provider.user_info.profile_pic.url }}" class="img-thumbnail" />
-
-      <a href="{% url 'providers:detail' provider.user_info_id %}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{ provider.user_info.username }}</h4>
-      </a>
-      {% else %}
-      <a href="{% url 'providers:detail' provider.user_info_id %}" class="list-group-item">
-        <h4 class="list-group-item-heading">{{ provider.user_info.username }}</h4>
-      </a>
-      {% endif %}
+      <div class="col-md-12">
+        <div class="grid search">
+          <div class="grid-body">
+            <div class="row">
+            <!-- BEGIN FILTERS -->
+              <div class="col-md-3">
+                <div class="card">
+                  <div class="card-header text-center-align">
+                    <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
+                  </div>
+                                                 
+                                                
+        <!-- BEGIN FILTER BY CATEGORY -->
+          <h4>By category:</h4>
+          <div class="checkbox">
+                  <label><input type="checkbox" class="icheck"> Hair</label>
+          </div>
+          <div class="checkbox">
+                  <label><input type="checkbox" class="icheck"> nails</label>
+          </div>
+          <div class="checkbox">
+                  <label><input type="checkbox" class="icheck"> Desktop</label>
+          </div>
+          <div class="checkbox">
+                  <label><input type="checkbox" class="icheck"> Management</label>
+          </div>
+           <div class="checkbox">
+                  <label><input type="checkbox" class="icheck"> Mobile</label>
+           </div>
+             
+              </div>
+              </div>  
+   <!-- END FILTER BY CATEGORY -->
+  {% for provider in serviceproviders_list %}
+      <div class="col-md-9 col-md-pull-3">
+        <p class="search-results-count">About 94 700 000 (0.39 sec.) results</p>
+        <section class="search-result-item">
+        <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}">
+         {% if provider.user_info.profile_pic %}
+            <img class="image" src="{{ provider.user_info.profile_pic.url }}">
+            <div class="search-result-item-body">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h4 class="search-result-item-heading"><a href="#">{{ provider.user_info.username }}</a></h4>
+                        <p class="info">New York, NY 20188</p>
+                        <p class="description">{{ provider.about_me }}</p>
+                    </div>
+                    <div class="col-sm-3 text-align-center">
+                        <p class="value3 mt-sm">$9, 700</p>
+                        <p class="fs-mini text-muted">PER WEEK</p><a class="btn btn-primary btn-info btn-sm" href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </a>    
+        </section>
+        {% endif %}
     {% endfor %}
+      
+      
     </div>
   </div>
 </div>
+
+
 {% endblock content %}

@@ -17,6 +17,9 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">How It Works</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'providers:list' %}">Stylists</a>
+            </li>
           </ul>
           <ul class="navbar-nav"> 
             {% if request.user.is_authenticated %}

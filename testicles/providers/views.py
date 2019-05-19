@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, ListView, DetailView, CreateView, FormView
+from django.views.generic import UpdateView, ListView, DetailView, CreateView, FormView, TemplateView
 from django.views import View
 from django.core.mail import send_mail
 from django.views.generic.detail import SingleObjectMixin
 from django.forms import Select
 from django.utils import timezone
-from .models import ServiceProviders, ProviderRequests
+from .models import ServiceProviders, ProviderRequests, Services
 from .forms import RequestForm
 
 
@@ -52,8 +52,8 @@ provider_detail_view = ProviderDetailView.as_view()
 class ProviderRequestFormView(CreateView):
     form_class = RequestForm
     model = ProviderRequests
-    #fields = ['start_date', 'start_time', 'requested_service', 'sub_service',]
-    
+
+
     def form_valid(self, form):
         form.instance.requesting_user_id = self.request.user
         form.instance.provider_id = self.kwargs.pop('user_info')
@@ -108,5 +108,9 @@ class ProviderRequestDecison(UpdateView):
             form.instance.accepted = 'False'
         return super(ProviderRequestDecison, self).form_valid(form)
 
-
+class ProviderDashboard(DetailView):
+    model = ServiceProviders
+    slug_field = "user_info"
+    slug_url_kwarg = "user_info"
+    template_name = "providers/serviceprovider_dash.html"
     
