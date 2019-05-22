@@ -3,45 +3,47 @@
 {% block title %}Providers{% endblock %}
 
 {% block content %}
-<div class="container">
+
   <h2>Providers</h2>
 
   <div class="container-fluid" style="width: 100%">
     <div class=row>
       <div class="col-md-12">
-        <div class="grid search">
-          <div class="grid-body">
-            <div class="row">
+		    <div class="grid search">
+			    <div class="grid-body">
+				    <div class="row">
             <!-- BEGIN FILTERS -->
-              <div class="col-md-3">
-                <div class="card">
-                  <div class="card-header text-center-align">
-                    <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
-                  </div>
-                                                 
-                                                
-        <!-- BEGIN FILTER BY CATEGORY -->
-          <h4>By category:</h4>
-          <div class="checkbox">
-                  <label><input type="checkbox" class="icheck"> Hair</label>
-          </div>
-          <div class="checkbox">
-                  <label><input type="checkbox" class="icheck"> nails</label>
-          </div>
-          <div class="checkbox">
-                  <label><input type="checkbox" class="icheck"> Desktop</label>
-          </div>
-          <div class="checkbox">
-                  <label><input type="checkbox" class="icheck"> Management</label>
-          </div>
-           <div class="checkbox">
-                  <label><input type="checkbox" class="icheck"> Mobile</label>
-           </div>
+					    <div class="col-md-3">
+              <div class="card">
+                <div class="card-header text-center-align">
+						    <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
+                </div>
+						 
+						
+						<!-- BEGIN FILTER BY CATEGORY -->
+            
+						  <h4>By category:</h4>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Hair</label>
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> nails</label>
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Desktop</label>
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Management</label>
+						  </div>
+						   <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Mobile</label>
+						   </div>
              
               </div>
               </div>  
-   <!-- END FILTER BY CATEGORY -->
-  {% for provider in serviceproviders_list %}
+						<!-- END FILTER BY CATEGORY -->
+      
+    {% for provider in serviceproviders_list %}
       <div class="col-md-9 col-md-pull-3">
         <p class="search-results-count">About 94 700 000 (0.39 sec.) results</p>
         <section class="search-result-item">
@@ -70,6 +72,5 @@
     </div>
   </div>
 </div>
-
-
 {% endblock content %}
+
