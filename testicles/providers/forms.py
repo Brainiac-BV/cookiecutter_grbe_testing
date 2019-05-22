@@ -21,7 +21,7 @@ class RequestForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["requested_service"].queryset = Services.objects.none()
+        self.fields["sub_service"].queryset = Services.objects.none()
 
     def clean_start_date(self, *args, **kwargs):
            value =  self.cleaned_data.get('start_date')
