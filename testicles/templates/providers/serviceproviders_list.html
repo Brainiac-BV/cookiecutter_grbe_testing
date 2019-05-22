@@ -48,8 +48,8 @@
         <p class="search-results-count">About 94 700 000 (0.39 sec.) results</p>
         <section class="search-result-item">
         <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}">
-         {% if provider.user_info.profile_pic %}
-            <img class="image" src="{{ provider.user_info.profile_pic.url }}">
+         
+            <img class="image" src="{{ provider.user_info.profile_pic.url }}" alt="Pic goes here">
             <div class="search-result-item-body">
                 <div class="row">
                     <div class="col-sm-9">
@@ -65,7 +65,8 @@
             </div>
         </a>    
         </section>
-        {% endif %}
+	      
+       
     {% endfor %}
       
       
