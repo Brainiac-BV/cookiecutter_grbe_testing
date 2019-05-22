@@ -45,10 +45,10 @@
       
     {% for provider in serviceproviders_list %}
       <div class="col-md-9 col-md-pull-3">
-        <p class="search-results-count">About 94 700 000 (0.39 sec.) results</p>
+        {% if provider.user_info.profile_pic %}
         <section class="search-result-item">
         <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}">
-         {% if provider.user_info.profile_pic %}
+         
             <img class="image" src="{{ provider.user_info.profile_pic.url }}" alt="Pic goes here">
             <div class="search-result-item-body">
                 <div class="row">
@@ -66,7 +66,11 @@
         </a>    
         </section>
 	{% else %}
-	 <div class="search-result-item-body">
+	  <section class="search-result-item">
+        <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}">
+         
+            <img class="image" src="" alt="Pic goes here">
+            <div class="search-result-item-body">
                 <div class="row">
                     <div class="col-sm-9">
                         <h4 class="search-result-item-heading"><a href="#">{{ provider.user_info.username }}</a></h4>
@@ -79,7 +83,9 @@
                     </div>
                 </div>
             </div>
-        </a>         
+        </a>    
+        </section>
+                
 	{% endif %}      
        
     {% endfor %}
