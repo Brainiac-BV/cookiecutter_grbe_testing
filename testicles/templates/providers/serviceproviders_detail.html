@@ -38,19 +38,7 @@
    {% csrf_token %}
     
         <div class="form-row">
-          <div class="col-sm-3">
-          {{ form.start_date }}
-        </div>
-        <div class="col-sm-3">
-          {{ form.start_time }}
-        </div>
-       <div class="col-sm-3">
-          {{ form.requested_service }}
-        </div>
-       
-        <div class="col-sm-3">
-          {{ form.sub_service }}
-        </div>  
+          {% bootstrap_form form %}
         <button type="submit" class="btn btn-info">Submit</button>
                 
         
