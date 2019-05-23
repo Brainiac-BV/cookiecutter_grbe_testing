@@ -19,10 +19,6 @@ class RequestForm(forms.ModelForm):
             "start_time": TimePickerInput(),        
        }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["sub_service"].queryset = Services.objects.none()
-
     def clean_start_date(self, *args, **kwargs):
            value =  self.cleaned_data.get('start_date')
            current_date = date.today()
