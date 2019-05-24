@@ -81,21 +81,20 @@
               </div>
           </div>
         </div>
-      </div>
-    </div>
-    {% for req in object.providerrequests_set.all %}
-      {{ req.start_date }}
-    {% endfor %}  
-    <div class="container">
-      <div class="row">
+  
         <div class="col-lg-6">
           <div class="card text-center profile-card">
-            <h5 class="card-header">placeholder</h5>
+            <h5 class="card-header">Requests</h5>
               <div class="card-body">
-                <p class="card-text">empty for now</p>
+                <p class="card-text">View service requests you have made</p>
                 <a href="" class="btn btn-md btn-info btn-lg">Go</a>
               </div>
           </div>
-        </div>          
+        </div>
+      </div>
+    </div>        
 {% endif %}
+{% for req in object.providerrequests_set.all %}
+      {{ req.start_date }}
+    {% endfor %}  
 {% endblock %}

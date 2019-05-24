@@ -42,11 +42,9 @@
   </head>
 
   <body>
-
     
-    {% include "navbar.html" %}
-      <div id="page-container">
-        <div id="content-wrap">
+      <div id="content-wrap">
+        {% include "navbar.html" %}
      <!-- all other page content -->
    
       {% if messages %}
@@ -62,9 +60,10 @@
       {% block usercontent %}
       {% endblock %}
 
-      </div>
+      
       {% include "footer.html" %}
-    </div>  
+      </div>  
+    
     {% block modal %}{% endblock modal %}
 
     <!-- Le javascript
@@ -73,9 +72,9 @@
     {% block javascript %}
       
       <!-- Required by Bootstrap v4.1.1 -->
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+      
+      
+      
 
       <!-- Your stuff: Third-party javascript libraries go here -->
       

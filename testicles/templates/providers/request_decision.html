@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="row">
+<h4>{{ req_user}}</h4>
 <h2 class="text-center">Appointment Request</h2>
 </div>
 
@@ -9,7 +10,7 @@
     <div class="row">
         <div class="card w-50 text-center profile-card">
             <ul class="list-group">
-                <li class="list-group-item">For: {{ object.requesting_user }} </li>
+                <li class="list-group-item" name="reqd">For: {{ object.requesting_user }} </li>
                 <li class="list-group-item">Date: {{ object.start_date }} </li>
                 <li class="list-group-item">Time: {{ object.start_time }} </li>
                 <li class="list-group-item">Service: {{ object.requested_service }} - {{ object.sub_service }} </li>
