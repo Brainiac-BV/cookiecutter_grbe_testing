@@ -1,0 +1,57 @@
+{% extends "postman/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}
+{% block extrahead %}{{ block.super }}
+{% if autocompleter_app.is_active %}{# using the available admin jQuery is enough #}
+{# should not be necessary since AS v1.3 with AJAX_SELECT_BOOTSTRAP set #}
+{#<script type="text/javascript" src="{% static 'admin/js/jquery.min.js' %}"></script>#}
+{% endif %}
+
+{{ form.media }}
+{% endblock %}
+
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<br>
+<br>
+<div class="email-app">
+    <nav>
+        <a href="{% url 'postman:write' %}" class="btn btn-danger btn-block">New Email</a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'postman:inbox' %}"><i class="fa fa-inbox"></i> Inbox <span class="badge badge-danger">4</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-star"></i> Stared</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-rocket"></i> Sent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-trash-o"></i> Trash</a>
+            </li>
+            
+    </nav>
+    <main>
+        <p class="text-center">New Message</p>
+        <form action="{% if next_url %}?next={{ next_url|urlencode }}{% endif %}" method="post">
+            {% csrf_token %}
+            {% block pm_write_recipient %}{% endblock %}
+            <div class="form-row mb-3">
+                <label for="to" class="col-2 col-sm-1 col-form-label">To:</label>
+                <div class="col-10 col-sm-11">
+                    {% bootstrap_form form %}
+                    
+            </div>
+        </form>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Send</button>
+                    <button type="submit" class="btn btn-light">Draft</button>
+                    <button type="submit" class="btn btn-danger">Discard</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}

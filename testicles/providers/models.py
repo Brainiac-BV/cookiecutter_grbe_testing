@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 
 from enum import Enum
-
+from .managers import ProviderServiceManager
 # Create your models here.
 
 class ServiceProviders(models.Model):
@@ -15,58 +15,52 @@ class ServiceProviders(models.Model):
         primary_key=True, 
         )
 
-    #dates_available = models.DateTimeField(blank=True, null=True)        
-    
-    services_provided = models.ManyToManyField('Services', 
-                        help_text='select the services you would like to provide',
-    )
-
     # Used for Profile page
+    date_joined = models.DateTimeField(auto_now_add=True)
+    short_description = models.CharField(max_length=40)
     about_me = models.TextField(verbose_name='About Me', max_length=300, 
     help_text='Tell them about yourself! Why should they choose you? What makes you stand out?',
-    default='Fuck It'
     )
+    is_licensed = models.BooleanField('Have You aquired your any beauticians license?', default=False)
+    services = ProviderServiceManager()
+
+    def _get_full_name(self):
+        # Returns the person's full name."
+        return '%s' % (self.user_info.username)
+    name = property(_get_full_name)
     
-    # Get count of services provided
-    def service_count(self):
-        return len(self.services_provided)
+    def _get_services(self):
+        # Returns the person's full name."
+        return '%s' % (Services.objects.filter(provider=self).name)
+    name = property(_get_full_name)
+
+    def __str__(self):
+        return self.name
 
 class Services(models.Model):
     """
-    This model class exists to contain all of the available services providers will be able to choose 
+    This model class exists
+     to contain all of the available services providers will be able to choose 
     from on their profile pages, which will also be in search filtering, appointment creation and
     in read only view when customers view a provider profile.
     """
-    SUB_CHOICES = (
-    ('Hair', (
-            ('braiding', 'braiding'),
-            ('cut', 'cut'),
-            ('w/d', 'Wash and dry'),
-            ('styling', 'styling'),
-        )
-    ),
-    ('Nails', (
-            ('natural', 'Natural Set'),
-            ('full', 'Full Set'),
-        )
-    ),
-    ('Make up', (
-            ('full_face', 'Full Face'),
-            ('touchup', 'Touchup'),
-        )
-)
-)
-    name = ArrayField(models.CharField(max_length=20))
+    CATEGORIES = (
+    ('Hair', 'Hair'),
+    ('Nails', 'Nails'),
+    ('Make Up', 'Make up'))
+    
+    category = models.CharField(max_length=20, choices=CATEGORIES)
 
-    sub_choice = models.CharField(
+    services = models.CharField(
                 max_length=20,
-                choices=SUB_CHOICES,
                 default='Hair',)
+    price = models.DecimalField(max_digits=5, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=40)
-
+    provider = models.ManyToManyField('ServiceProviders',)
+    
     def __str__(self):
-        return self.name[0]
+        return self.category
 
 """
 class SubServices(models.Model):
@@ -108,8 +102,8 @@ class Appointments(models.Model):
 class ProviderRequests(models.Model):
     start_date = models.DateField()
     start_time = models.TimeField()
-    requested_service = models.ForeignKey('Services', on_delete='CASCADE')
-    sub_service = models.CharField(max_length=25, choices=Services.SUB_CHOICES, blank=True, null=True)
+    category = models.CharField(max_length=20)
+    services = models.CharField(max_length=20)
     requesting_user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                         on_delete='CASCADE',
                                         to_field='username',

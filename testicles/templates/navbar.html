@@ -15,7 +15,7 @@
               <a class="nav-link" href="{% url 'home' %}">Become a Stylist<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'about' %}">How It Works</a>
+              <a class="nav-link" href="#how-section">How It Works</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'providers:list' %}">Stylists</a>
@@ -39,7 +39,11 @@
                       <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
                     </li>
                   </button>
-                  <button class="dropdown-item" type="button">Something else here</button>
+                  <button class="dropdown-item" type="button">
+                    <li class="nav-item">
+                    {# URL provided by django-allauth/account/urls.py #}
+                    <a class="nav-link" href="{% url 'providers:dash' request.user.serviceproviders.pk  %}">{% trans "Provider Dashboard" %}</a>
+                    </li></button>
                 </div>
               </div>
               

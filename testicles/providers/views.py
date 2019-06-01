@@ -56,6 +56,7 @@ class ProviderRequestFormView(CreateView):
     form_class = RequestForm
     model = ProviderRequests
 
+   # def get_initial(self)
 
     def form_valid(self, form):
         form.instance.requesting_user_id = self.request.user
@@ -96,7 +97,7 @@ class ProviderRequestDecison(UpdateView):
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         user = request.GET.get('username')
-        email2 = ProviderRequests.objects.get(requesting_user_id=user)
+        #email2 = ProviderRequests.objects.get(requesting_user_id=user)
         if form.is_valid():
             if 'accept' in request.POST:
                 pm_write(request.user, user,'test', 'test message',)
@@ -118,3 +119,21 @@ class ProviderDashboard(DetailView):
     slug_url_kwarg = "user_info"
     template_name = "providers/serviceprovider_dash.html"
     
+class ServiceCreationView(CreateView):
+    model = Services
+    fields = ["category", "services", "description", "price"]
+
+    def form_valid(self, form):
+        form.save()
+        form.instance.provider.add(self.request.user.pk)
+        return super(ServiceCreationView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('providers:service_list')
+
+class ServiceListView(ListView):
+    model = Services
+
+    def get_queryset(self):
+        provider =  self.request.user.serviceproviders.pk
+        return Services.objects.filter(provider=provider)

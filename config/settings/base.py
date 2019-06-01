@@ -74,6 +74,8 @@ THIRD_PARTY_APPS = [
     'bootstrap4',
     'bootstrap_datepicker_plus',
     'postman',
+    'ajax_select',
+    'django_filters',
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [

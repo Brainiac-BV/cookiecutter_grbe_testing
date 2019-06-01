@@ -17,8 +17,10 @@
 						<!-- BEGIN FILTER BY CATEGORY -->
             
 						  <h4>By category:</h4>
+                          <form action="{% url 'providers:filter' %}" method="get">
 						  <div class="checkbox">
 							  <label><input type="checkbox" class="icheck"> Hair</label>
+                              {{form.filter.services}}
 						  </div>
 						  <div class="checkbox">
 							  <label><input type="checkbox" class="icheck"> nails</label>
@@ -32,7 +34,8 @@
 						   <div class="checkbox">
 							  <label><input type="checkbox" class="icheck"> Mobile</label>
 						   </div>
-             
+                           <button class="btn">Filter</button>
+                          </form>  
               </div>
     </div>
    

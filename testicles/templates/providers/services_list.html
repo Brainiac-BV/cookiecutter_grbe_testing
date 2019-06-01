@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mx-auto">
+<h2 style="align: center;">Your services</h2>
+<a href="{% url 'providers:create_service' %}"><button class="btn" action=>Add Service</button></a>
+{% if services_list %}
+    {% for service in services_list  %}
+        <ul>
+        <div class="card w-50">
+            <div class="card-header">
+                <h5 style="text-align:center;">{{service.services}}</h5>
+            </div>
+       <li> {{ service.category }}</li>
+       <li> {{service.description}}</li>
+       <li> $ {{service.price }}</li>
+       <button class="btn" action="{% url 'providers:service_list' %}">Edit</button>
+       </div>
+       </ul>
+    {% endfor %}
+{% else %}
+No services
+{% endif %}
+</div>
+{% endblock content %}

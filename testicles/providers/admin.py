@@ -9,13 +9,13 @@ from .models import ServiceProviders, Services, ProviderRequests
 #admin.site.register(ServiceProviders)
 @admin.register(ServiceProviders)
 class ServiceProviderAdmin(admin.ModelAdmin):
-     fields = ['services_provided', 'user_info', 'about_me']
-     list_display = ['user_info']
+     fields = ['user_info', 'about_me', 'short_description']
+     list_display = ['name', 'date_joined']
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
-    fields = ('name', 'description', 'sub_choice')
-    list_display = ('name',)
+    fields = ('category', 'description', 'services', 'price', 'provider')
+    list_display = ('category', 'services', 'price')
 
 @admin.register(ProviderRequests)
 class RequestAdmin(admin.ModelAdmin):

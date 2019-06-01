@@ -1,11 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap4 %}
+{% block extrahead %}
 
+
+
+{% endblock extrahead %}
 
 {% block content %}
+
 <div class="row">
-<div class="card>
+<div class="card">
     <div class="col-sm-12 col-md-8 col-md-offset-2">
         <h3 style="text-center">{% block title %}Hey {{ object.username }}!{% endblock %}</h3>
     </div>    
@@ -17,7 +22,7 @@
       {% elif object.name %}
         <p>{{ object.name }}</p>  
       {% endif %}
-      <p>{{ object.test }}
+      
     </div>
   </div>
   </div>
@@ -53,7 +58,7 @@
             <h5 class="card-header">Provider Profile</h5>
               <div class="card-body">
                 <p class="card-text">Go to your Provider Dashboard</p>
-                <a href="{% url 'providers:test' object.serviceproviders.pk %}" class="btn btn-md btn-info btn-lg">Go</a>
+                <a href="{% url 'providers:dash' object.serviceproviders.pk %}" class="btn btn-md btn-info btn-lg">Go</a>
               </div>
           </div>
         </div>          
