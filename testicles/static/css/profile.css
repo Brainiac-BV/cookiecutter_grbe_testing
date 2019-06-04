@@ -25,6 +25,7 @@
 	height: auto;
 	width: 100%;
 	border-radius: 100%;
+	padding: 10% auto;
 }
 .username {
 	font-weight: 400;
@@ -124,8 +125,11 @@
 	margin: 0
 }
 .followbtn {
-	float: right;
-	margin: 22px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	
 }
 .userprofile.social {
 	background: url(http://www.bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg) no-repeat top center;

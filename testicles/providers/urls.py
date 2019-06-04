@@ -2,12 +2,13 @@ from django.urls import path
 from django_filters.views import FilterView
 
 from .views import (provider_view, provider_list_view, provider_detail_view, provider_request, ProviderDetail, ProviderRequestFormList, ProviderRequestDecison, ProviderDashboard, ServiceCreationView,
-ServiceListView, )
+ServiceListView, ProviderCreateView )
 from .filters import ServicesFilter
 
 app_name = "providers"
 urlpatterns = [
     path("", view=provider_list_view, name="list"),
+    path("new/", view=ProviderCreateView.as_view(), name="new"),
     path("update/<int:pk>", view=provider_view, name="provider_view"),
     path("<int:pk>", view=ProviderDetail.as_view(), name="detail"),
     path("request", view=ProviderRequestFormList.as_view(), name="provider_request"),

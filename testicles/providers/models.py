@@ -14,26 +14,37 @@ class ServiceProviders(models.Model):
         on_delete=models.CASCADE,
         primary_key=True, 
         )
-
+    zip_code = models.IntegerField(unique=True, )
     # Used for Profile page
     date_joined = models.DateTimeField(auto_now_add=True)
-    short_description = models.CharField(max_length=40)
+    short_description = models.CharField(max_length=80)
     about_me = models.TextField(verbose_name='About Me', max_length=300, 
     help_text='Tell them about yourself! Why should they choose you? What makes you stand out?',
     )
-    is_licensed = models.BooleanField('Have You aquired your any beauticians license?', default=False)
-    services = ProviderServiceManager()
-
+    header_img = models.ImageField(verbose_name="Profile Header Image", blank=True, null=True)
+    is_licensed = models.BooleanField('Have You aquired any beauticians license?', default=False)
+    
+    CATEGORIES = (
+        ('Hair', 'Hair'),
+        ('Nails', 'Nails'),
+        ('Face', 'Face'))
+    
+    service_categories = ArrayField(models.CharField(max_length=40, choices=CATEGORIES ))
+    #services = models. 
     def _get_full_name(self):
         # Returns the person's full name."
         return '%s' % (self.user_info.username)
     name = property(_get_full_name)
     
     def _get_services(self):
-        # Returns the person's full name."
-        return '%s' % (Services.objects.filter(provider=self).name)
-    name = property(_get_full_name)
-
+        # Returns the providers associated services."
+        results = Services.objects.filter(provider=self).order_by('category')
+        services = ""
+        for res in results:
+            services += '%s - %s ' %  (res.category, res.services)
+        return services
+    services_list = property(_get_services)
+    
     def __str__(self):
         return self.name
 
@@ -51,16 +62,16 @@ class Services(models.Model):
     
     category = models.CharField(max_length=20, choices=CATEGORIES)
 
-    services = models.CharField(
+    services = ArrayField(models.CharField(
                 max_length=20,
-                default='Hair',)
+                default='Hair',))
     price = models.DecimalField(max_digits=5, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=40)
     provider = models.ManyToManyField('ServiceProviders',)
     
     def __str__(self):
-        return self.category
+        return self.services[0]
 
 """
 class SubServices(models.Model):
@@ -102,7 +113,7 @@ class Appointments(models.Model):
 class ProviderRequests(models.Model):
     start_date = models.DateField()
     start_time = models.TimeField()
-    category = models.CharField(max_length=20)
+    category = models.ForeignKey(Services, on_delete='CASCADE', )
     services = models.CharField(max_length=20)
     requesting_user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                         on_delete='CASCADE',

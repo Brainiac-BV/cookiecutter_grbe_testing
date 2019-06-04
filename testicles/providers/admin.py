@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from .models import ServiceProviders, Services, ProviderRequests
+from .forms import ServiceProvidersAdminForm
 
 # Register your models here.
 
@@ -9,8 +10,9 @@ from .models import ServiceProviders, Services, ProviderRequests
 #admin.site.register(ServiceProviders)
 @admin.register(ServiceProviders)
 class ServiceProviderAdmin(admin.ModelAdmin):
-     fields = ['user_info', 'about_me', 'short_description']
-     list_display = ['name', 'date_joined']
+     form = ServiceProvidersAdminForm
+     
+     list_display = ['name', 'date_joined', 'service_categories']
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
@@ -20,5 +22,5 @@ class ServicesAdmin(admin.ModelAdmin):
 @admin.register(ProviderRequests)
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('start_date',)
-    fields = ['start_date', 'start_time', 'requested_service', 'requesting_user', 'provider',]
+    fields = ['start_date', 'start_time', 'category', 'requesting_user', 'provider',]
 

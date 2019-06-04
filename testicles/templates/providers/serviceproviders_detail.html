@@ -3,6 +3,8 @@
 {% load bootstrap4 %}
 {% bootstrap_javascript jquery='full' %}
 {% block extrahead %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
 <link href="{% static 'css/profile.css' %}" rel="stylesheet">
 {{ form.media }}
 {% endblock %}
@@ -15,79 +17,66 @@
       <div class="col-md-12 text-center ">
         <div class="card card-default">
           <div class="userprofile social ">
-            <div class="userpic"> <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="userpicimg"> </div>
+            <div class="userpic"> {% if provider.user_info.profile_pic.url %}
+     <div class="userpicimg">
+        <img src="{{ provider.user_info.profile_pic.url }}" />
+      </div>
+    {% else %}
+    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="userpicimg"> </div>
+    {% endif %}
             <h3 style="text-center">Hey {{ object.name }}!</h3>
-            <p>Gujarat, India</p>
-            <div class="socials tex-center"> <a href="" class="btn btn-circle btn-primary ">
-            <i class="fa fa-facebook"></i></a> <a href="" class="btn btn-circle btn-danger ">
-            <i class="fa fa-google-plus"></i></a> <a href="" class="btn btn-circle btn-info ">
-            <i class="fa fa-twitter"></i></a> <a href="" class="btn btn-circle btn-warning "><i class="fa fa-envelope"></i></a>
-            </div>
+            <p>{{object.short_description}}</p>
+            
           </div>
           <div class="col-md-12 border-top border-bottom">
-            <ul class="nav nav-pills pull-left countlist" role="tablist">
-              <li role="presentation">
-                <h3>1452<br>
-                  <small>Follower</small> </h3>
-              </li>
-              <li role="presentation">
-                <h3>245<br>
-                  <small>Following</small> </h3>
-              </li>
-              <li role="presentation">
-                <h3>5000<br>
-                  <small>Activity</small> </h3>
-              </li>
-            </ul>
-            <button class="btn btn-primary followbtn">Follow</button>
+            
+            <button class="btn btn-primary btn-raised followbtn"><a href="{% url 'postman:write' object.user_info %}">Send a Message</a></button>
+            <button type="button" class="btn btn-warning  bmd-btn-fab-sm bmd-btn-fab-sm followbtn"><i class="material-icons">grade</i></button>
           </div>
           <div class="clearfix"></div>
         </div>
       </div>
+     </div> 
       <br />
       <br>
       <div class="container">
        <div class="row">
         <div class="col-sm-3">
             <!--left col-->
+          <div class="card profile-card">
+             <div class="card-header">Profile Info
+
+                </div>  
             <ul class="list-group">
-                <li class="list-group-item text-muted" contenteditable="false">Profile</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span> 2.13.2014</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> Yesterday</li>
+                
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span> {{object.date_joined}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> {{object.user_info.last_login}}</li>
                     <li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span> Joseph
                         Doe</li>
               <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span> Pet Sitter
                
                       </li>
             </ul>
-           <div class="card card-default">
-             <div class="card-heading">Insured / Bonded?
+          </div>  
+           <div class="card profile-card">
+             <div class="card-header">Beauticians License?
 
                 </div>
-                <div class="card-body"><i style="color:green" class="fa fa-check-square"></i> Yes, I am insured and bonded.
+                <div class="card-body"><i style="color:green" class="fa fa-check-square"></i> Yes, I am Licensed.
 
                 </div>
             </div>
             <div class="card card-default">
-                <div class="card-heading">Website <i class="fa fa-link fa-1x"></i>
+                <div class="card-header">Beauty School<i class="fa fa-link fa-1x"></i>
 
                 </div>
-                <div class="card-body"><a href="http://bootply.com" class="">bootply.com</a>
+                <div class="card-body"><a href="" class="">some school...</a>
 
                 </div>
             </div>
           
-            <ul class="list-group">
-                <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
-
-                </li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
-                        <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
-            </ul>
-            <div class="card card-default">
-                <div class="card-heading">Social Media</div>
+            <div class="card profile-card">
+                <div class="card-header">Social Media</div>
                 <div class="card-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
                     <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
 
@@ -96,14 +85,9 @@
         </div>
         <!--/col-3-->
         <div class="col-sm-9" contenteditable="false" style="">
-            <div class="card card-default">
-                <div class="card-heading">Starfox221's Bio</div>
-                <div class="card-body"> A long description about me.
-
-                </div>
-            </div>
-            <div class="card card-default target">
-                <div class="card-heading" contenteditable="false">Pets I Own</div>
+           
+            <div class="card profile-card target">
+                <div class="card-header" contenteditable="false"><h4>Services I provide:</h4></div>
                 <div class="card-body">
                   <div class="row">
 				<div class="col-md-4">
@@ -131,6 +115,7 @@
 							</h3>
 							<p>
 								Is just another friendly dog.
+                <h2>{{provider.services_list }}</h2>     
 							</p>
 							<p>
 							
@@ -155,16 +140,16 @@
                 </div>
                  
             </div>
-                     
-            </div>
-                 
+          </div>         
         </div>
+                 
+      
               
     </div>
-           <div class="card card-default">
-                <div class="card-heading">Starfox221's Bio</div>
-                <div class="card-body"> A long description about me.
-
+           <div class="card profile-card">
+                <div class="card-header"><h4>About Me</h4></div>
+                <div class="card-body"> 
+                  {{object.about_me}}
                 </div>
 </div>
 </div> 
@@ -172,34 +157,19 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-    {% if provider.user_info.profile_pic.url %}
-     <div class="img-thumbnail">
-        <img src="{{ provider.user_info.profile_pic.url }}" />
-      </div>
-    {% else %}
-    <p>No Pic!</p>
-    {% endif %}
-{% for serv in provider.services.all %}
-  {{serv}}
-{% endfor %}
-     
-      <h4>{{ object.user_info.username }}</h4>
+    
+
     </div>
   </div>
 </div>  
-<div class="card">
-  <div class="card-header">
-    <h5>About Me</h5>
-  </div>
-  <h4 style="text-align:center;"> {{ object.about_me }} </h4>
-</div>  
-  <div class="card">
-   
+
+  <div class="card profile-card">
+   <div class="card-header"><h4>Request Form</h4></div>
     
    <form method="post" > 
    {% csrf_token %}
     
-        <div class="form" style="margin-left:auto; margin-right:auto;">
+        <div class="form" >
           {% bootstrap_form form %}
         <button type="submit" class="btn btn-info">Submit</button>
                 

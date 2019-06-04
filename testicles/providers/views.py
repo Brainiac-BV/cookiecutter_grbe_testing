@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView, ListView, DetailView, CreateView, FormView, TemplateView
 from django.views import View
 from django.core.mail import send_mail
@@ -15,17 +16,16 @@ from .forms import RequestForm
 
 # Create your views here.
 
-'''
-def provider_view(request):
-    form = ServiceProviderForm()
-    return render(request, 'providers/form.html', {'form':form} )   
-'''
+class ProviderCreateView(LoginRequiredMixin,CreateView):
+    model = ServiceProviders
+    template_name = "providers/provider_signup.html"
+    fields = ["short_description", "about_me", "is_licensed", "service_categories"]
 
-class ProviderView(UpdateView):
+class ProviderView(LoginRequiredMixin, UpdateView):
     model = ServiceProviders
     slug_field = "user_info_id"
     slug_url_kwarg = "user_info_id"
-    fields = ["about_me", "services_provided"]
+    fields = ["about_me", "service_categories"]
 
 
 
@@ -42,21 +42,26 @@ provider_list_view = ProviderListView.as_view()
 class ProviderDetailView(DetailView):
     model = ServiceProviders
     slug_field = "user_info"
-    slug_url_kwarg = "user_info"
+    slug_url_kwarg = "user_info"  
 
-    #slug_url_kwarg = "user_info_id"
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs(*args, **kwargs)
+        kwargs['prov'] = self.kwargs.pop('pk')
+        return kwargs 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = RequestForm()
-        return context
-
+        context['form'] = RequestForm(prov=self.kwargs.pop('pk'))
+        return context 
+        
 provider_detail_view = ProviderDetailView.as_view()
 
-class ProviderRequestFormView(CreateView):
-    form_class = RequestForm
+class ProviderRequestFormView(LoginRequiredMixin, CreateView):
+    #form_class = RequestForm()
     model = ProviderRequests
+    fields = ['start_date', 'start_time', 'category', 'services']
 
-   # def get_initial(self)
+   
 
     def form_valid(self, form):
         form.instance.requesting_user_id = self.request.user
@@ -81,7 +86,7 @@ class ProviderDetail(View):
         return view(request, *args, **kwargs)
 
 
-class ProviderRequestFormList(ListView):
+class ProviderRequestFormList(LoginRequiredMixin, ListView):
     model = ProviderRequests
 
     def get_queryset(self):
@@ -89,7 +94,7 @@ class ProviderRequestFormList(ListView):
         provider = self.request.user.serviceproviders.pk
         return ProviderRequests.objects.filter(provider_id=provider).order_by('start_date')
 
-class ProviderRequestDecison(UpdateView):
+class ProviderRequestDecison(LoginRequiredMixin, UpdateView):
     model = ProviderRequests
     fields = ['accepted', ]
     template_name = "providers/request_decision.html"
@@ -113,13 +118,13 @@ class ProviderRequestDecison(UpdateView):
             form.instance.accepted = 'False'
         return super(ProviderRequestDecison, self).form_valid(form)
     
-class ProviderDashboard(DetailView):
+class ProviderDashboard(LoginRequiredMixin, DetailView):
     model = ServiceProviders
     slug_field = "user_info"
     slug_url_kwarg = "user_info"
     template_name = "providers/serviceprovider_dash.html"
     
-class ServiceCreationView(CreateView):
+class ServiceCreationView(LoginRequiredMixin, CreateView):
     model = Services
     fields = ["category", "services", "description", "price"]
 
@@ -131,9 +136,10 @@ class ServiceCreationView(CreateView):
     def get_success_url(self):
         return reverse_lazy('providers:service_list')
 
-class ServiceListView(ListView):
+class ServiceListView(LoginRequiredMixin, ListView):
     model = Services
 
     def get_queryset(self):
         provider =  self.request.user.serviceproviders.pk
         return Services.objects.filter(provider=provider)
+        
