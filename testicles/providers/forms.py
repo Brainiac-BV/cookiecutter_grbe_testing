@@ -27,7 +27,7 @@ class RequestForm(forms.ModelForm):
 class ServiceProvidersAdminForm(forms.ModelForm):
     class Meta:
         model = ServiceProviders
-        fields = ['user_info', 'about_me', 'short_description', 'service_categories']
+        fields = ['user_info', 'about_me', 'short_description', 'service_categories', 'zip_code']
         widgets = {
             #'service_categories': forms.widgets.SelectMultiple( )
         }        

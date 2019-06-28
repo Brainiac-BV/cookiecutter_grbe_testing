@@ -19,7 +19,14 @@ from .forms import RequestForm
 class ProviderCreateView(LoginRequiredMixin,CreateView):
     model = ServiceProviders
     template_name = "providers/provider_signup.html"
-    fields = ["short_description", "about_me", "is_licensed", "service_categories"]
+    fields = ["short_description", "about_me", "is_licensed", "service_categories", "zip_code"]
+
+    def form_valid(self, form):
+        form.instance.user_info_id = self.request.user.pk
+        return super(ProviderCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('providers:list')
 
 class ProviderView(LoginRequiredMixin, UpdateView):
     model = ServiceProviders
@@ -60,8 +67,6 @@ class ProviderRequestFormView(LoginRequiredMixin, CreateView):
     #form_class = RequestForm()
     model = ProviderRequests
     fields = ['start_date', 'start_time', 'category', 'services']
-
-   
 
     def form_valid(self, form):
         form.instance.requesting_user_id = self.request.user
