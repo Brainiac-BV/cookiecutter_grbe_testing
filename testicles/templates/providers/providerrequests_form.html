@@ -10,7 +10,7 @@
     {% csrf_token %}
     <div class="contianer">
         <div class="form-row align-items-center">
-            {% bootstrap_form form %}
+            {{ form.as_p }}
             <div class="control-group">
                 <div class="controls">
                     <button type="submit" class="btn">Update</button>

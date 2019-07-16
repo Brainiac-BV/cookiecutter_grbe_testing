@@ -7,11 +7,8 @@ from django.views import View
 from django.core.mail import send_mail
 from allauth.account.models import EmailAddress
 
-from postman.api import pm_write
-
-
 from .models import ServiceProviders, ProviderRequests, Services
-from .forms import RequestForm
+from .forms import RequestForm, ServiceProvidersForm
 
 
 # Create your views here.
@@ -19,7 +16,8 @@ from .forms import RequestForm
 class ProviderCreateView(LoginRequiredMixin,CreateView):
     model = ServiceProviders
     template_name = "providers/provider_signup.html"
-    fields = ["short_description", "about_me", "is_licensed", "service_categories", "zip_code"]
+    form_class = ServiceProvidersForm
+    #fields = ["short_description", "about_me", "is_licensed", "service_categories", "zip_code", "services"]
 
     def form_valid(self, form):
         form.instance.user_info_id = self.request.user.pk
@@ -40,9 +38,6 @@ provider_view = ProviderView.as_view()
 
 class ProviderListView(ListView):
     model = ServiceProviders
-    #slug_field = "user_info"
-    #slug_url_kwarg = "username"
-
 
 provider_list_view = ProviderListView.as_view()
 
@@ -50,23 +45,29 @@ class ProviderDetailView(DetailView):
     model = ServiceProviders
     slug_field = "user_info"
     slug_url_kwarg = "user_info"  
-
-    def get_form_kwargs(self, *args, **kwargs):
-        kwargs = super().get_form_kwargs(*args, **kwargs)
-        kwargs['prov'] = self.kwargs.pop('pk')
-        return kwargs 
-
+     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = RequestForm(prov=self.kwargs.pop('pk'))
-        return context 
-        
+        return context
+"""
+    def get_form(self):
+        form = super().get_form()
+        form.fields['services'].queryset = ServiceProviders.objects.filter(pk=self.kwargs.pop('pk'))    
+"""        
 provider_detail_view = ProviderDetailView.as_view()
 
 class ProviderRequestFormView(LoginRequiredMixin, CreateView):
     #form_class = RequestForm()
     model = ProviderRequests
-    fields = ['start_date', 'start_time', 'category', 'services']
+    fields = ['start_date', 'start_time', 'services']
+
+    """
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(ProviderRequestFormView, self).get_form_kwargs(*args, **kwargs)
+        kwargs['prov'] = self.kwargs.pop('pk')
+        return kwargs 
+    """
 
     def form_valid(self, form):
         form.instance.requesting_user_id = self.request.user
@@ -84,7 +85,13 @@ class ProviderDetail(View):
 
     def get(self, request, *args, **kwargs):
         view = ProviderDetailView.as_view()
-        return view(request, *args, **kwargs)
+        context = {}
+        context['form'] = RequestForm(prov=kwargs.get('pk'))
+        context['object'] = ServiceProviders.objects.get(pk=kwargs.get('pk'))
+        context['services'] = Services.objects.all()
+        print(kwargs)
+        print(context['services'])
+        return render(request, 'providers/serviceproviders_detail.html', context)
 
     def post(self, request, *args, **kwargs):
         view = ProviderRequestFormView.as_view()
@@ -146,5 +153,5 @@ class ServiceListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         provider =  self.request.user.serviceproviders.pk
-        return Services.objects.filter(provider=provider)
+        return Services.objects.filter(serviceproviders=provider)
         

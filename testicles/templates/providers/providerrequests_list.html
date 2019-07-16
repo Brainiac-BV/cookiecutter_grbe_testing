@@ -20,7 +20,7 @@
                <th scope="row"><a href="{% url 'providers:decision' req.pk %}"> {{ forloop.counter }}</a></th>
                 <td>{{ req.start_date }}</td>
                 <td>{{ req.start_time }}</td>
-                <td>{{ req.requested_service}} - {{ req.sub_service}}</td>
+                <td>{{ req.services}}</td>
                 <td>{{ req.requesting_user }}</td>
                 <td>{{ req.accepted }}</td>
             </tr>

@@ -39,7 +39,7 @@
                       <a class="nav-link" href="{% url 'account_logout' %}">{% trans "Sign Out" %}</a>
                     </li>
                   </button>
-                    {% if request.user.is_provider %}
+                    {% if request.user.serviceproviders.pk %}
                   <button class="dropdown-item" type="button">
                     <li class="nav-item">
                     {# URL provided by django-allauth/account/urls.py #}

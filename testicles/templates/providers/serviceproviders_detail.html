@@ -17,9 +17,10 @@
       <div class="col-md-12 text-center ">
         <div class="card card-default">
           <div class="userprofile social ">
-            <div class="userpic"> {% if provider.user_info.profile_pic.url %}
-     <div class="userpicimg">
-        <img src="{{ provider.user_info.profile_pic.url }}" />
+            <div class="userpic"> 
+            {% if object.user_info.profile_pic %}
+            
+            <img src="{{ object.user_info.profile_pic.url }}" class="userpicimg" />
       </div>
     {% else %}
     <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="userpicimg"> </div>
@@ -90,61 +91,23 @@
                 <div class="card-header" contenteditable="false"><h4>Services I provide:</h4></div>
                 <div class="card-body">
                   <div class="row">
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" src="http://lorempixel.com/600/200/people">
-						<div class="caption">
-							<h3>
-								Rover
-							</h3>
-							<p>
-								Cocker Spaniel who loves treats.
-							</p>
-							<p>
-							
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" src="http://lorempixel.com/600/200/city">
-						<div class="caption">
-							<h3>
-								Marmaduke
-							</h3>
-							<p>
-								Is just another friendly dog.
-                <h2>{{provider.services_list }}</h2>     
-							</p>
-							<p>
-							
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="thumbnail">
-						<img alt="300x200" src="http://lorempixel.com/600/200/sports">
-						<div class="caption">
-							<h3>
-								Rocky
-							</h3>
-							<p>
-								Loves catnip and naps. Not fond of children.
-							</p>
-							<p>
-							
-							</p>
-						</div>
+				
+                {% for service in object.services.all %}
+               <div class="col-md-4"> 
+                <div class="card w-100">
+                  <div class="card-header">
+                    <h5 style="text-align:center;">{{service.name}}</h5>
+                  </div>
+                  <li> {{ service.category }}</li>
+                  <li> {{service.description}}</li>
+                  <li> $ {{service.price }}</li>
                 </div>
+              </div>
+    {% endfor %}
+					
                  
-            </div>
-          </div>         
-        </div>
-                 
-      
-              
+   </div>    
+   </div>           
     </div>
            <div class="card profile-card">
                 <div class="card-header"><h4>About Me</h4></div>
@@ -152,8 +115,8 @@
                   {{object.about_me}}
                 </div>
 </div>
-</div> 
-</div>
+
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -170,7 +133,7 @@
    {% csrf_token %}
     
         <div class="form" >
-          {% bootstrap_form form %}
+          {{ form.as_p }}
         <button type="submit" class="btn btn-info">Submit</button>
                 
         

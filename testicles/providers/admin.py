@@ -12,15 +12,15 @@ from .forms import ServiceProvidersAdminForm
 class ServiceProviderAdmin(admin.ModelAdmin):
      form = ServiceProvidersAdminForm
      
-     list_display = ['name', 'date_joined', 'service_categories']
+     list_display = ['name', 'date_joined', 'service_categories', ]
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
-    fields = ('category', 'description', 'services', 'price', 'provider')
-    list_display = ('category', 'services', 'price')
+    fields = ('category', 'description', 'serviceproviders', 'price',)
+    list_display = ('category', 'serviceproviders', 'price')
 
 @admin.register(ProviderRequests)
 class RequestAdmin(admin.ModelAdmin):
     list_display = ('start_date',)
-    fields = ['start_date', 'start_time', 'category', 'requesting_user', 'provider',]
+    fields = ['start_date', 'start_time', 'requesting_user', 'provider',]
 

@@ -152,7 +152,7 @@ section h2 {
   }
 }
 
-header.masthead {
+header.jumbotron {
   position: relative;
   width: 100%;
   padding-top: 150px;
@@ -161,41 +161,41 @@ header.masthead {
   background: url("../img/become_bg.jpg");
 }
 
-header.masthead .header-content {
+header.jumbotron .header-content {
   max-width: 500px;
   margin-bottom: 100px;
   text-align: center;
 }
 
-header.masthead .header-content h1 {
+header.jumbotron .header-content h1 {
   font-size: 30px;
 }
 
-header.masthead .device-container {
+header.jumbotron .device-container {
   max-width: 325px;
   margin-right: auto;
   margin-left: auto;
 }
 
-header.masthead .device-container .screen img {
+header.jumbotron .device-container .screen img {
   border-radius: 3px;
 }
 
 @media (min-width: 992px) {
-  header.masthead {
+  header.jumbotron {
     height: 100vh;
     min-height: 775px;
     padding-top: 0;
     padding-bottom: 0;
   }
-  header.masthead .header-content {
+  header.jumbotron .header-content {
     margin-bottom: 0;
     text-align: left;
   }
-  header.masthead .header-content h1 {
+  header.jumbotron .header-content h1 {
     font-size: 50px;
   }
-  header.masthead .device-container {
+  header.jumbotron .device-container {
     max-width: 325px;
   }
 }

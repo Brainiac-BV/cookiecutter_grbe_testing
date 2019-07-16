@@ -29,13 +29,15 @@ class ServiceProviders(models.Model):
         ('Nails', 'Nails'),
         ('Face', 'Face'))
     
-    service_categories = ArrayField(models.CharField(max_length=40, choices=CATEGORIES ))
-    #services = models. 
+    service_categories = models.CharField(max_length=40, choices=CATEGORIES )
+    services =  models.ManyToManyField('Services')
+
     def _get_full_name(self):
         # Returns the person's full name."
         return '%s' % (self.user_info.username)
     name = property(_get_full_name)
     
+    """
     def _get_services(self):
         # Returns the providers associated services."
         results = Services.objects.filter(provider=self).order_by('category')
@@ -44,7 +46,7 @@ class ServiceProviders(models.Model):
             services += '%s - %s ' %  (res.category, res.services)
         return services
     services_list = property(_get_services)
-    
+    """
     def __str__(self):
         return self.name
 
@@ -62,16 +64,14 @@ class Services(models.Model):
     
     category = models.CharField(max_length=20, choices=CATEGORIES)
 
-    services = ArrayField(models.CharField(
-                max_length=20,
-                default='Hair',))
+    name = models.CharField(max_length=20)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     date_added = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=40)
-    provider = models.ManyToManyField('ServiceProviders',)
+    #provider = models.ManyToManyField('ServiceProviders',)
     
     def __str__(self):
-        return self.services[0]
+        return self.name
 
 """
 class SubServices(models.Model):
@@ -113,7 +113,7 @@ class Appointments(models.Model):
 class ProviderRequests(models.Model):
     start_date = models.DateField()
     start_time = models.TimeField()
-    category = models.ForeignKey(Services, on_delete='CASCADE', )
+    #category = models.ForeignKey(Services, on_delete='CASCADE', )
     services = models.CharField(max_length=20)
     requesting_user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                         on_delete='CASCADE',
