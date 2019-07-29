@@ -3,7 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
 
-from enum import Enum
+import datetime
 from .managers import ProviderServiceManager
 # Create your models here.
 
@@ -16,7 +16,7 @@ class ServiceProviders(models.Model):
         )
     zip_code = models.IntegerField(unique=True, )
     # Used for Profile page
-    date_joined = models.DateTimeField(auto_now_add=True)
+    date_joined = models.DateTimeField(default=datetime.datetime.now)
     short_description = models.CharField(max_length=80)
     about_me = models.TextField(verbose_name='About Me', max_length=300, 
     help_text='Tell them about yourself! Why should they choose you? What makes you stand out?',
@@ -24,12 +24,7 @@ class ServiceProviders(models.Model):
     header_img = models.ImageField(verbose_name="Profile Header Image", blank=True, null=True)
     is_licensed = models.BooleanField('Have You aquired any beauticians license?', default=False)
     
-    CATEGORIES = (
-        ('Hair', 'Hair'),
-        ('Nails', 'Nails'),
-        ('Face', 'Face'))
-    
-    service_categories = models.CharField(max_length=40, choices=CATEGORIES )
+    service_categories = models.ManyToManyField('Categories')
     services =  models.ManyToManyField('Services')
 
     def _get_full_name(self):
@@ -49,6 +44,16 @@ class ServiceProviders(models.Model):
     """
     def __str__(self):
         return self.name
+
+class Categories(models.Model):
+    name = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+        
 
 class Services(models.Model):
     """

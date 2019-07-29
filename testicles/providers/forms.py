@@ -16,8 +16,10 @@ class ServiceProvidersForm(forms.ModelForm):
     class Meta:
         model = ServiceProviders
         fields = ["short_description", "about_me", "is_licensed", "service_categories", "zip_code", "services"]
+        
+
         widgets = {
-            "service_categories": forms.widgets.SelectMultiple()
+            #"service_categories": forms.widgets.SelectMultiple(choices=CATEGORIES)
         }
 
 
@@ -29,8 +31,8 @@ class RequestForm(forms.ModelForm):
         #provider = ServiceProviders.objects.filter(pk=prov)
         super(RequestForm, self).__init__(*args, **kwargs)
         self.fields['services'].queryset = Services.objects.filter(serviceproviders=prov).values_list('name', flat=True)
-        print(prov)
-        print([ServiceProviders.objects.filter(pk=prov)])
+        #print(prov)
+        #print([ServiceProviders.objects.filter(pk=prov)])
     
     class Meta:
         model = ProviderRequests
