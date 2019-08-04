@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}
+{% block extrahead %}
+
+{{ form.media }}
+{% endblock %}
+
+{% block content %}
+<div class='card w-50 mx-auto'>
+  <div class="card-header">
+    <h5 style="text-align:center;">Service Creator</h5>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-info">Add Service</button>
+  </form>
+</div>
+{% endblock content %}

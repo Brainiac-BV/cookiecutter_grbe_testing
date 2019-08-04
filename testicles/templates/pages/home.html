@@ -1,1 +1,68 @@
 {% extends "base.html" %}
+{% load static bootstrap4 %}
+{% block extrahead %}
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+{% endblock extrahead %}
+
+{% block content %}
+
+{% include "header.html" %}
+
+{% include "service_deck.html" %}
+
+{% include "how.html" %}
+<body>
+<div class="container">
+	<div class="row">
+	<ul>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab  item">
+			<div class="folded-corner service_tab_1">
+				<div class="text">
+					<i class="fa fa-image fa-5x fa-icon-image"></i>
+						<p class="item-title">
+								<h3> Find your Beautician</h3>
+							</p><!-- /.item-title -->
+					<p>
+						On Grbe you can find a stylist in our salon directory or our independant directory
+					</p>
+				</div>
+			</div>
+	    </div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab item">
+			<div class="folded-corner service_tab_1">
+				<div class="text">
+					<i class="fa fa-lightbulb-o fa-5x fa-icon-image" ></i>
+						<p class="item-title">
+							<h3> Request an Appointment</h3>
+						</p><!-- /.item-title -->
+						<p>
+                        Make a request for an Appointment after finding the stylist profile you like
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab item">
+			<div class="folded-corner service_tab_1">
+				<div class="text">
+					<i class="fa fa-truck fa-5x fa-icon-image"></i>
+						<p class="item-title">
+							<h3> </h3>
+						</p><!-- /.item-title -->
+					<p>
+						This is an amazing set of animated accordions based completely on CSS. They come oriented both vertically and horizontally in order to fit properly in your project. In order to see the slides, 
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		
+	   </ul>
+	</div>
+</div>
+
+  
+  
+  
+
+</body>
+{% endblock content %}

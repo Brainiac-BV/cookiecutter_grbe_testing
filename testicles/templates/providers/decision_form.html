@@ -1,0 +1,18 @@
+
+
+{% block content %}
+<form class="form-horizontal" method="post">
+    {% csrf_token %}
+    <div class="contianer">
+        <div class="form-row align-items-center">
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" class="btn btn-lg btn-success" name="accept" value="True" />
+                    <button type="submit" class="btn btn-lg btn-danger" name="deny" value="False">Deny</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+    
+  </form>
+{% endblock content %}

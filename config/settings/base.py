@@ -59,7 +59,7 @@ DJANGO_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'django.contrib.humanize', # Handy template tags
+    'django.contrib.humanize', # Handy template tags
     'django.contrib.admin',
 ]
 THIRD_PARTY_APPS = [
@@ -71,11 +71,16 @@ THIRD_PARTY_APPS = [
     #'allauth.socialaccount.providers.facebook',
     #'allauth.socialaccount.providers.google',
     #'allauth.socialaccount.providers.twitter',
+    'bootstrap4',
+    'bootstrap_datepicker_plus',
+    'postman',
+    'ajax_select',
+    'django_filters',
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [
-    'testicles.users.apps.UsersAppConfig',
-    'testicles.providers.apps.ProvidersConfig',
+    'users.apps.UsersAppConfig',
+    'providers.apps.ProvidersConfig',
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -194,6 +199,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                # Other context
+                'postman.context_processors.inbox',
             ],
         },
     },
@@ -256,3 +263,16 @@ SOCIALACCOUNT_ADAPTER = 'testicles.users.adapters.SocialAccountAdapter'
 ACCOUNT_FORMS = {
 'signup': 'users.forms.CustomSignupForm',
 }
+
+
+# POSTMAN_I18N_URLS = True  # default is False
+POSTMAN_DISALLOW_ANONYMOUS = True  # default is False
+POSTMAN_DISALLOW_MULTIRECIPIENTS = True  # default is False
+# POSTMAN_DISALLOW_COPIES_ON_REPLY = True  # default is False
+# POSTMAN_DISABLE_USER_EMAILING = True  # default is False
+# POSTMAN_FROM_EMAIL = 'from@host.tld'  # default is DEFAULT_FROM_EMAIL
+# POSTMAN_PARAMS_EMAIL = get_params_email  # default is None
+POSTMAN_AUTO_MODERATE_AS = True  # default is None
+# POSTMAN_SHOW_USER_AS = 'get_full_name'  # default is None
+# POSTMAN_NAME_USER_AS = 'last_name'  # default is None
+POSTMAN_QUICKREPLY_QUOTE_BODY = True  # default is False

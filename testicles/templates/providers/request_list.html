@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center">My Requests</h1>
+<table class="table table-bordered">
+  <thead class="table-info">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Service</th>
+      <th scope="col">User</th>
+      <th scope="col">Decision</th>
+    </tr>
+  </thead>
+ 
+{% for req in request_list  %}
+    <tr> 
+      <th scope="row"> <a href="{% url 'providers:decision' req.pk %}">{{ forloop.counter }}</a></th>
+      <td>{{ req.start_date }}</td>
+      <td>{{ req.start_time }}</td>
+      <td>{{ req.requested_service }}</td>
+      <td>{{ req.requesting_user }}</td>
+      <td>{{ req.accepted }}</td>
+      
+    </tr> 
+{% endfor %}
+
+</table>
+{{ req_index }}
+{% endblock content %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static i18n %}
+{% block title %}Providers{% endblock %}
+
+{% block content %}
+
+  <h2>Providers</h2>
+<div class="container">
+  <div class="row ng-scope">
+    <div class="col-md-3 col-md-push-9">
+        <div class="card">
+                <div class="card-header text-center-align">
+						    <h2 class="grid-title"><i class="fa fa-filter"></i> Filters</h2>
+                </div>
+						 
+						
+						<!-- BEGIN FILTER BY CATEGORY -->
+            
+						  <h4>By category:</h4>
+                          <form action="{% url 'providers:filter' %}" method="get">
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Hair</label>
+                              {{form.filter.services}}
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> nails</label>
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Desktop</label>
+						  </div>
+						  <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Management</label>
+						  </div>
+						   <div class="checkbox">
+							  <label><input type="checkbox" class="icheck"> Mobile</label>
+						   </div>
+                           <button class="btn">Filter</button>
+                          </form>  
+              </div>
+    </div>
+   
+
+   <div class="col-md-9 col-md-pull-3">   
+    {% for provider in serviceproviders_list %}
+      
+        {% if provider.user_info.profile_pic %}
+        
+        <section class="search-result-item">
+            <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}"><img class="image" src="{{ provider.user_info.profile_pic.url }}">
+            </a>
+            <div class="search-result-item-body">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h4 class="search-result-item-heading"><a href="#">{{ provider.name }}</a></h4>
+                        <p class="info">New York, NY 20188</p>
+                        <p class="description">{{ provider.short_description }}</p>
+                    </div>
+                    <div class="col-sm-3 text-align-center">
+                        <p class="value3 mt-sm">$9, 700</p>
+                        <p class="fs-mini text-muted">PER WEEK</p><a class="btn btn-primary btn-info btn-sm" href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+	{% else %}
+	    <section class="search-result-item">
+            <a class="image-link" href="{% url 'providers:detail' provider.user_info_id %}">
+         
+            <img class="image" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Pic goes here">
+            <div class="search-result-item-body">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <h4 class="search-result-item-heading"><a href="#">{{ provider.name }}</a></h4>
+                        <p class="info">New York, NY 20188</p>
+                        <p class="description">{{ provider.short_description }}</p>
+                    </div>
+                    <div class="col-sm-3 text-align-center">
+                        <p class="value3 mt-sm">$9, 700</p>
+                        <p class="fs-mini text-muted">PER WEEK</p><a class="btn btn-primary btn-info btn-sm" href="#">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </a>  
+    </section>            
+	{% endif %}      
+    {% endfor %}
+      
+      
+    </div>
+  </div>
+</div>
+{% endblock content %}
+

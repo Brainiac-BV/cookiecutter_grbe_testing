@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static bootstrap4 %}
+
+
+
+{% block content %}
+<div class="card w-75 profile-card mx-auto" >
+  <div class="card-header text-center"><h3>Stylist Sign Up Form</h3></div> 
+    
+   <form method="post" > 
+   {% csrf_token %}
+    
+        <div class="form" >
+          {% bootstrap_form form %}
+        <button type="submit" class="btn btn-success btn-raised">Submit</button>
+                
+        
+    </div>        
+    
+    </form>
+  </div>
+{% endblock content %}

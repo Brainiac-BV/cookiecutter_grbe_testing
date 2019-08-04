@@ -1,37 +1,105 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
+{% load bootstrap4 %}
+{% block extrahead %}
 
-{% block title %}User: {{ object.username }}{% endblock %}
+
+
+{% endblock extrahead %}
 
 {% block content %}
-<div class="container">
 
-  <div class="row">
-    <div class="col-sm-12">
-
-      <h2>{{ object.username }}</h2>
-      {% if object.name %}
-        <p>{{ object.name }}</p>
+<div class="row">
+<div class="card">
+    <div class="col-sm-12 col-md-8 col-md-offset-2">
+        <h3 style="text-center">{% block title %}Hey {{ object.username }}!{% endblock %}</h3>
+    </div>    
+</div>
+<div class="row">
+    <div class="col-lg-12">
+      {% if object.name and object.profile_pic %}
+        <p><img src="{{ object.profile_pic.url }}" /> {{ object.name }}</p>
+      {% elif object.name %}
+        <p>{{ object.name }}</p>  
       {% endif %}
-      <p>{{ object.test }}
+      
     </div>
+  </div>
   </div>
 
 {% if object == request.user %}
-<!-- Action buttons -->
-<div class="row">
-
-  <div class="col-sm-12">
-    <a class="btn btn-primary" href="{% url 'users:update' %}" role="button">My Info</a>
-    <a class="btn btn-primary" href="{% url 'account_email' %}" role="button">E-Mail</a>
-    <!-- Your Stuff: Custom user template urls -->
-  </div>
-
-</div>
-<!-- End Action buttons -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="card text-center w-40 profile-card">
+              <h5 class="card-header">Profile</h5>
+              <div class="card-body">
+                <p class="card-text">Use the below link to edit your profile</p>
+                <a href="{% url 'users:update' %}" class="btn btn-md btn-info btn-lg">Edit</a>
+              </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card text-center w-0 profile-card">
+            <h5 class="card-header">Change Password</h5>
+            <div class="card-body">
+                <p class="card-text">Use the below link to change your password</p>
+               
+                <a href="{% url 'account_reset_password' %}" class="btn btn-info btn-lg">Edit</a>
+            </div>
+          </div>
+        </div>
+      </div>
+{% if object.serviceproviders %}    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">Provider Profile</h5>
+              <div class="card-body">
+                <p class="card-text">Go to your Provider Dashboard</p>
+                <a href="{% url 'providers:dash' object.serviceproviders.pk %}" class="btn btn-md btn-info btn-lg">Go</a>
+              </div>
+          </div>
+        </div>          
 {% endif %}
-
-
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">Delete Account</h5>
+            <div class="card-body">
+              <p class="card-text">Use the below link to delete your account</p>
+              <p class="card-text"><span class="text-danger">Remember that this is permanent!!!</span></p>
+              <a href="{% url 'users:delete' object %}" class="btn btn-danger btn-lg">Delete</a>
+            </div>
+          </div>
+        </div>
+    </div>
 </div>
-{% endblock content %}
-
+<div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">Messages</h5>
+              <div class="card-body">
+                <p class="card-text">Manage your messages</p>
+                <a href="{% url 'postman:inbox' %}" class="btn btn-md btn-info btn-lg">Messages</a>
+              </div>
+          </div>
+        </div>
+  
+        <div class="col-lg-6">
+          <div class="card text-center profile-card">
+            <h5 class="card-header">Requests</h5>
+              <div class="card-body">
+                <p class="card-text">View service requests you have made</p>
+                <a href="" class="btn btn-md btn-info btn-lg">Go</a>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>        
+{% endif %}
+{% for req in object.providerrequests_set.all %}
+      {{ req.start_date }}
+    {% endfor %}  
+{% endblock %}

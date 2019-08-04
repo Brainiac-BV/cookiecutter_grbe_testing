@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}
+{% block extrahead %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<link href="{% static 'css/profile.css' %}" rel="stylesheet">
+{{ form.media }}
+{% endblock %}
+
+{% block title %}{{ object.user_info.username }}'s Details {% endblock %}
+
+{% block content %}
+
+<div class="row">
+      <div class="col-md-12 text-center ">
+        <div class="card card-default">
+          <div class="userprofile social ">
+            <div class="userpic"> 
+            {% if object.user_info.profile_pic %}
+            
+            <img src="{{ object.user_info.profile_pic.url }}" class="userpicimg" />
+      </div>
+    {% else %}
+    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" class="userpicimg"> </div>
+    {% endif %}
+            <h3 style="text-center">Hey {{ object.name }}!</h3>
+            <p>{{object.short_description}}</p>
+            
+          </div>
+          <div class="col-md-12 border-top border-bottom">
+            
+            <button class="btn btn-primary btn-raised followbtn"><a href="{% url 'postman:write' object.user_info %}">Send a Message</a></button>
+            <button type="button" class="btn btn-warning  bmd-btn-fab-sm bmd-btn-fab-sm followbtn"><i class="material-icons">grade</i></button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+     </div> 
+      <br />
+      <br>
+      <div class="container">
+       <div class="row">
+        <div class="col-sm-3">
+            <!--left col-->
+          <div class="card profile-card">
+             <div class="card-header">Profile Info
+
+                </div>  
+            <ul class="list-group">
+                
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Joined</strong></span> {{object.date_joined}}</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong class="">Last seen</strong></span> {{object.user_info.last_login}}</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong class="">Real name</strong></span> Joseph
+                        Doe</li>
+              <li class="list-group-item text-right"><span class="pull-left"><strong class="">Role: </strong></span> Pet Sitter
+               
+                      </li>
+            </ul>
+          </div>  
+           <div class="card profile-card">
+             <div class="card-header">Beauticians License?
+
+                </div>
+                <div class="card-body"><i style="color:green" class="fa fa-check-square"></i> Yes, I am Licensed.
+
+                </div>
+            </div>
+            <div class="card card-default">
+                <div class="card-header">Beauty School<i class="fa fa-link fa-1x"></i>
+
+                </div>
+                <div class="card-body"><a href="" class="">some school...</a>
+
+                </div>
+            </div>
+          
+            <div class="card profile-card">
+                <div class="card-header">Social Media</div>
+                <div class="card-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i> 
+                    <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
+
+                </div>
+            </div>
+        </div>
+        <!--/col-3-->
+        <div class="col-sm-9" contenteditable="false" style="">
+           
+            <div class="card profile-card target">
+                <div class="card-header" contenteditable="false"><h4>Services I provide:</h4></div>
+                <div class="card-body">
+                  <div class="row">
+				
+                {% for service in object.services.all %}
+               <div class="col-md-4"> 
+                <div class="card w-100">
+                  <div class="card-header">
+                    <h5 style="text-align:center;">{{service.name}}</h5>
+                  </div>
+                  <li> {{ service.category }}</li>
+                  <li> {{service.description}}</li>
+                  <li> $ {{service.price }}</li>
+                </div>
+              </div>
+    {% endfor %}
+					
+                 
+   </div>    
+   </div>           
+    </div>
+           <div class="card profile-card">
+                <div class="card-header"><h4>About Me</h4></div>
+                <div class="card-body"> 
+                  {{object.about_me}}
+                </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+    
+
+    </div>
+  </div>
+</div>  
+
+  <div class="card profile-card">
+   <div class="card-header"><h4>Request Form</h4></div>
+    
+   <form method="post" > 
+   {% csrf_token %}
+    
+        <div class="form" >
+          {{ form.as_p }}
+        <button type="submit" class="btn btn-info">Submit</button>
+                
+        
+    </div>        
+    
+    </form>
+  </div>
+
+</div>
+</div>
+<!-- Action buttons --> 
+<!-- End Action buttons -->
+
+{% endblock content %}
+
+

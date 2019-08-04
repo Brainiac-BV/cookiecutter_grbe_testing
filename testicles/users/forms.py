@@ -19,11 +19,8 @@ class UserCreationForm(forms.UserCreationForm):
         {"duplicate_username": _("This username has already been taken.")}
     )
     
-    # zip_code = IntegerField(max_value=5)
-
     class Meta(forms.UserCreationForm.Meta):
         model = User
-        zip_code = IntegerField(max_value=5)
 
 
     def clean_username(self):

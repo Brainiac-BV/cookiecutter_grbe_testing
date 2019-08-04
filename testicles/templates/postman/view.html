@@ -1,0 +1,96 @@
+{% extends "postman/base_write.html" %}
+{% load i18n %}{% load postman_tags %}
+{% block extrahead %}
+{{ form.media }}
+{% endblock extrahead %}
+{% block content %}
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<br>
+<br>
+<div class="email-app mb-4">
+    <nav>
+        <a href="{% url 'postman:write' %}" class="btn btn-danger btn-block">New Email</a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'postman:inbox' %}"><i class="fa fa-inbox"></i> Inbox <span class="badge badge-danger">4</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><i class="fa fa-star"></i> Stared</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'postman:sent' %}"><i class="fa fa-rocket"></i> Sent</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'postman:trash' %}"><i class="fa fa-trash-o"></i> Trash</a>
+            </li>
+            
+    </nav>
+    <main class="message">
+      <div class="toolbar">
+        <div class="btn-group">
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-star"></span>
+          </button>
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-star-o"></span>
+          </button>
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-bookmark-o"></span>
+          </button>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-mail-reply"></span>
+          </button>
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-mail-reply-all"></span>
+          </button>
+          <button type="button" class="btn btn-light">
+            <span class="fa fa-mail-forward"></span>
+          </button>
+        </div>
+        <button type="button" class="btn btn-light">
+          <span class="fa fa-trash-o"></span>
+        </button>
+        
+      </div>
+      <div class="details">
+      {% for message in pm_messages %}
+<div class="pm_message{% if message.is_pending %} pm_pending{% endif %}{% if message.is_rejected %} pm_rejected{% endif %}{% if message.sender == user and message.sender_archived or message.recipient == user and message.recipient_archived %} pm_archived{% endif %}{% if message.sender == user and message.sender_deleted_at or message.recipient == user and message.recipient_deleted_at %} pm_deleted{% endif %}{% if message.recipient == user and not message.read_at %} pm_unread{% endif %}">
+        <div class="title"><span class="pm_subject">{{ message.subject }}</span>
+        <div class="header">
+          <img class="avatar" src="http://bootdey.com/img/Content/avatar/avatar1.png">
+          <div class="from">
+            <p><span class="pm_sender">{{ message.obfuscated_sender|or_me:user }}</span> &raquo;{{ message.obfuscated_sender|or_me:user }}</p>
+          </div>
+          <div class="date">{{ message.sent_at|date:"DATETIME_FORMAT"}}</b></div>
+        </div>
+        
+{% if forloop.last %}
+<form action="" method="post">{% csrf_token %}
+<input type="hidden" {% if pm_messages|length > 1 and message.thread_id %}name="tpks" value="{{ message.thread_id }}"{% else %}name="pks" value="{{ message.pk }}"{% endif %} />
+<a href="{{ next_url }}" class="pm_action pm_action-back">{% trans "Back" %}</a>
+<span id="pm_buttons">
+<button type="submit" class="pm_btn pm_btn-delete"
+ onclick="this.form.action='{% url 'postman:delete' %}?next={{ next_url|urlencode }}'">{% trans "Delete" %}</button>
+{% if not archived %}<button type="submit" class="pm_btn pm_btn-archive"
+ onclick="this.form.action='{% url 'postman:archive' %}?next={{ next_url|urlencode }}'">{% trans "Archive" %}</button>{% endif %}
+</span>
+{% if reply_to_pk %}<a href="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}"
+ class="pm_action pm_action-reply">{% trans "Reply" %}</a>{% endif %}
+</form>
+{% if reply_to_pk %}<hr />
+<h2>{% trans 'Reply' %}</h2>
+<form action="{% url 'postman:reply' reply_to_pk %}?next={{ next_url|urlencode }}" method="post">{% csrf_token %}
+<div id="pm_reply">{{ form.body }}</div>
+<button type="submit" class="pm_btn pm_btn-reply">{% trans 'Reply' %}</button>
+</form>{% endif %}
+{% endif %}
+       
+      </div>
+    
+  
+  {% endfor %}
+  </main>
+  </div>
+{% endblock content %}
