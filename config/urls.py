@@ -5,6 +5,8 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.views import defaults as default_views
 
+import notifications.urls
+
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
@@ -28,6 +30,7 @@ urlpatterns = [
     ),
     path("messages/", 
     include("postman.urls", namespace='postman')),
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

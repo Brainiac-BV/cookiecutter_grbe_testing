@@ -1,63 +1,49 @@
-{% extends "base.html" %}
 {% load static bootstrap4 %}
-{% block extrahead %}
-<link href="{% static 'css/home.css' %}" rel="stylesheet">
-{% endblock extrahead %}
+{% bootstrap_javascript jquery='full' %}
+<head>
 
-{% block content %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+	<title>{% block title %}GRBE{% endblock %}</title>
+
+	<link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+    
+    <!-- Latest compiled and minified Bootstrap 4.1.1 CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    
+
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- This file stores project-specific CSS -->
+
+<link href="{% static 'css/home.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
 
 {% include "header.html" %}
 
 {% include "service_deck.html" %}
 
 {% include "how.html" %}
-<div class="container">
-	<div class="row">
-	<ul>
-		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab  item">
-			<div class="folded-corner service_tab_1">
-				<div class="text">
-					<i class="fa fa-image fa-5x fa-icon-image"></i>
-						<p class="item-title">
-								<h3> Find your Beautician</h3>
-							</p><!-- /.item-title -->
-					<p>
-						On Grbe you can find a stylist in our salon directory or our independant directory
-					</p>
-				</div>
-			</div>
-	    </div>
-		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab item">
-			<div class="folded-corner service_tab_1">
-				<div class="text">
-					<i class="fa fa-lightbulb-o fa-5x fa-icon-image" ></i>
-						<p class="item-title">
-							<h3> Request an Appointment</h3>
-						</p><!-- /.item-title -->
-						<p>
-                        Make a request for an Appointment after finding the stylist profile you like
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 Services-tab item">
-			<div class="folded-corner service_tab_1">
-				<div class="text">
-					<i class="fa fa-truck fa-5x fa-icon-image"></i>
-						<p class="item-title">
-							<h3> </h3>
-						</p><!-- /.item-title -->
-					<p>
-						This is an amazing set of animated accordions based completely on CSS. They come oriented both vertically and horizontally in order to fit properly in your project. In order to see the slides, 
-					</p>
-				</div>
-			</div>
-		</div>
-		
-		
-	   </ul>
-	</div>
-</div>
 
+<section class="call-to-action">
+    <div class="container">
+        <div class="row">
+    	    <div class="col-md-8 col-sm-8 text-right m-text-center">
+                <h1>Ready to Change Your Life Yet?</h1>
+            </div>
+             <div class="col-md-4 col-sm-4 m-text-center">
+                <a class="btn btn-white">Take the Next Step</a> 
+            </div>
+        </div>
+    </div>
+</section>
 
-{% endblock content %}
+{% include "footer2.html" %}
+</body>
