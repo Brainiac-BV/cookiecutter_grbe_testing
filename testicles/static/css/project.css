@@ -44,6 +44,10 @@ body {
   padding-bottom: 2.5rem;    /* Footer height */
 }
 
+footer {
+  background: black;
+}
+
 .search-result-categories>li>a {
   color: #b6b6b6;
   font-weight: 400

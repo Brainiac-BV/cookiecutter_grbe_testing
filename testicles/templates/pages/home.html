@@ -30,49 +30,39 @@
 {% include "header.html" %}
 
 {% include "service_deck.html" %}
-
+<hr>
 {% include "how.html" %}
-
-<section class="card w-100">
-    <div class="container">
-    <!-- Horizontal Steppers -->
+<hr>
+<section id="proc">
 <div class="row">
-  <div class="col-md-12">
+            <div class="mx-auto text-center">
+                  <div class="section-title mb-100">
+                     <h4>How It Works</h4>
+                  </div>
+            </div>
+        </div>
+  
+<div class="process">
+    <div class="process-row">
+        <div class="process-step">
+            <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-user fa-3x"></i></button>
+            <p>Create an Account</p>
+        </div>
+        <div class="process-step">
+            <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-comments-o fa-3x"></i></button>
+            <p>Search for a beautician</p>
+        </div>
+        <div class="process-step">
+            <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-thumbs-up fa-3x"></i></button>
+            <p>Request an appointment</p>
+        </div> 
+         <div class="process-step">
+            <button type="button" class="btn btn-success btn-circle" disabled="disabled"><i class="fa fa-eur fa-3x"></i></button>
+            <p>Enjoy your service!</p>
+        </div> 
+    </div>
 
-    <!-- Stepers Wrapper -->
-    <ul class="stepper stepper-horizontal">
 
-      <!-- First Step -->
-      <li class="completed">
-        <a href="#!">
-          <span class="circle">1</span>
-          <span class="label">First step</span>
-        </a>
-      </li>
-
-      <!-- Second Step -->
-      <li class="active">
-        <a href="#!">
-          <span class="circle">2</span>
-          <span class="label">Second step</span>
-        </a>
-      </li>
-
-      <!-- Third Step -->
-      <li class="warning">
-        <a href="#!">
-          <span class="circle"><i class="fas fa-exclamation"></i></span>
-          <span class="label">Third step</span>
-        </a>
-      </li>
-
-    </ul>
-    <!-- /.Stepers Wrapper -->
-
-  </div>
-</div>
-<!-- /.Horizontal Steppers -->
-</div>
 </section>
 
 <section class="card w-100">
