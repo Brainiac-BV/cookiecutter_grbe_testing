@@ -46,6 +46,7 @@ steps:
     source .env/bin/activate
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements/production.txt
+    pip install django-environ
     pip install django-bootstrap4
     pip install django-bootstrap_datepicker_plus
     pip install unittest-xml-reporting
