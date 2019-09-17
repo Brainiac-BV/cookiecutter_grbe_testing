@@ -41,7 +41,9 @@ steps:
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
 - script: |
-    . .env/bin/activate
+    pip install virtualenv
+    virtualenv grbe-test
+    source .env/bin/activate
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements/production.txt
     pip install django-bootstrap4
