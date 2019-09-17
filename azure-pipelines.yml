@@ -42,9 +42,9 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    pip install -r requirements/base.txt
     pip install -r requirements/production.txt
     pip install django-bootstrap4
+    pip install django-bootstrap_datepicker_plus
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
 
