@@ -40,7 +40,15 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      source .env/bin/activate
+
 - script: |
+    . .env/bin/activate
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements/production.txt
     pip install django-bootstrap4
