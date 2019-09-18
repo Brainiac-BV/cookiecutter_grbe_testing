@@ -42,7 +42,6 @@ steps:
 
 - script: |
     python -m pip install --upgrade pip setuptools wheel
-    pip install -r requirements/base.txt
     pip install -r requirements/production.txt
     pip install django-bootstrap4
     pip install unittest-xml-reporting
