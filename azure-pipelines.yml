@@ -61,4 +61,12 @@ steps:
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
 
-  
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'dropgrb'
+    publishLocation: 'Container'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'test'
