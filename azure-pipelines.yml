@@ -19,9 +19,6 @@ strategy:
   maxParallel: 3
 
 steps:
-  
-  env:
-    DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
 
 - task: UsePythonVersion@0
   inputs:
@@ -61,3 +58,6 @@ steps:
     testResultsFiles: "**/TEST-*.xml"
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
+
+  env:
+    DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
