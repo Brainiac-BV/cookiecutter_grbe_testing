@@ -53,6 +53,7 @@ steps:
     DATABASE_URL: $(DATABASE_URL)
     REDIS_URL: $(REDIS_URL)
     AWS_STORAGE_BUCKET_NAME: $(DJANGO_AWS_STORAGE_BUCKET_NAME)
+    DJANGO_AWS_ACCESS_KEY_ID: $(DJANGO_AWS_ACCESS_KEY_ID)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: "**/TEST-*.xml"
