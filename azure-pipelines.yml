@@ -10,13 +10,9 @@ pool:
   vmImage: 'ubuntu-latest'
 strategy:
   matrix:
-    Python35:
-      PYTHON_VERSION: '3.5'
     Python36:
       PYTHON_VERSION: '3.6'
-    Python37:
-      PYTHON_VERSION: '3.7'
-  maxParallel: 3
+  maxParallel: 1
 
 steps:
 
@@ -52,12 +48,12 @@ steps:
     pushd '$(projectRoot)'
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
   displayName: 'Run tests'
-
+  env:
+    DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: "**/TEST-*.xml"
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
 
-  env:
-    DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
+  
