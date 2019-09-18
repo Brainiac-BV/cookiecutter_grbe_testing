@@ -50,6 +50,7 @@ steps:
   displayName: 'Run tests'
   env:
     DJANGO_SECRET_KEY: $(DJANGO_SECRET_KEY)
+    DATABASE_URL: $(DATABASE_URL)
 - task: PublishTestResults@2
   inputs:
     testResultsFiles: "**/TEST-*.xml"
