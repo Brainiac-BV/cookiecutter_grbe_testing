@@ -76,6 +76,7 @@ THIRD_PARTY_APPS = [
     'postman',
     'ajax_select',
     'django_filters',
+    'notifications',
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [
