@@ -138,7 +138,7 @@ class ProviderDashboard(LoginRequiredMixin, DetailView):
     
 class ServiceCreationView(LoginRequiredMixin, CreateView):
     model = Services
-    fields = ["category", "services", "description", "price"]
+    fields = ["category", "description", "price"]
 
     def form_valid(self, form):
         form.save()
