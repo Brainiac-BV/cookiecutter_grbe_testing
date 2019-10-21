@@ -112,6 +112,7 @@ class ProviderRequestDecison(LoginRequiredMixin, UpdateView):
     template_name = "providers/request_decision.html"
    
     def post(self, request, *args, **kwargs):
+        obj = self.get_object()
         form = self.get_form()
         user = request.GET.get('username')
         #email2 = ProviderRequests.objects.get(requesting_user_id=user)
@@ -120,7 +121,7 @@ class ProviderRequestDecison(LoginRequiredMixin, UpdateView):
                 pm_write(request.user, user,'test', 'test message',)
                 return super().post(request, *args, **kwargs)
             elif 'deny' in request.POST:
-                send_mail('test', 'test message 2', 'admin@grbe.co', [request.user.email])
+                send_mail('test', 'test message 2', 'admin@grbe.co', [obj.requesting_user.email])
                 return super().post(request, *args, **kwargs)             
 
     def form_valid(self, form):
