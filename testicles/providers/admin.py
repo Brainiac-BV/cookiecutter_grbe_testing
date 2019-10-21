@@ -16,8 +16,8 @@ class ServiceProviderAdmin(admin.ModelAdmin):
 
 @admin.register(Services)
 class ServicesAdmin(admin.ModelAdmin):
-    fields = ('category', 'description', 'serviceproviders', 'price',)
-    list_display = ('category', 'serviceproviders', 'price')
+    fields = ('category', 'description',  'price')
+    list_display = ('category', 'price')
 
 @admin.register(ProviderRequests)
 class RequestAdmin(admin.ModelAdmin):
