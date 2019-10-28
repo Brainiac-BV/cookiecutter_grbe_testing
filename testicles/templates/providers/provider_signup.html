@@ -1,25 +1,160 @@
-{% extends "base.html" %}
-{% load static bootstrap4 %}
+{% load static i18n %}
+{% load bootstrap4 %}
 
-{% block extrahead %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.css">
-{% endblock extrahead %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}GRBE Test{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
 
-{% block content %}
-<div class="card w-75 profile-card mx-auto" >
-  <div class="card-header text-center"><h3>Stylist Sign Up Form</h3></div> 
-    
-   <form method="post" > 
-   {% csrf_token %}
-    
-        <div class="form" >
-          {% bootstrap_form form %}
-        <button type="submit" class="btn btn-success btn-raised">Submit</button>
-                
-        
-    </div>        
-    
-    </form>
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
+
+    {% block css %}
+<link rel="stylesheet" href="{% static 'vendor/bulma/css/bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/node_modules/bulma-extensions/bulma-steps/dist/css/bulma-steps.min.css' %}">
+{% endblock css %}
+
+</head>
+
+<body>
+<div class="steps" id="stepsDemo">
+  <div class="step-item is-active is-success">
+    <div class="step-marker">1</div>
+    <div class="step-details">
+      <p class="step-title">Account</p>
+    </div>
   </div>
-{% endblock content %}
+  <div class="step-item">
+    <div class="step-marker">2</div>
+    <div class="step-details">
+      <p class="step-title">Profile</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-marker">3</div>
+    <div class="step-details">
+      <p class="step-title">Services</p>
+    </div>
+  </div>
+  <div class="step-item">
+    <div class="step-marker">4</div>
+    <div class="step-details">
+      <p class="step-title">Finish</p>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+
+  <div class="steps-content">
+    <div class="step-content has-text-centered is-active">
+      <div class="card w-75 profile-card mx-auto" >
+        <div class="card-header text-center"><h3>Stylist Sign Up Form</h3></div> 
+    
+        <form method="post" > 
+          {% csrf_token %}
+    
+          <div class="field" >
+          {% bootstrap_form form %}
+          <button type="submit" class="btn btn-success btn-raised">Submit</button>
+          </div>        
+        </form>
+      </div>
+    </div>
+    
+  
+    <div class="step-content has-text-centered">
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Firstname</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" name="firstname" id="firstname" type="text" placeholder="Firstname" autofocus data-validate="require">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Last name</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icon has-icon-right">
+              <input class="input" type="text" name="lastname" id="lastname" placeholder="Last name" data-validate="require">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Email</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icon has-icon-right">
+              <input class="input" type="email" name="email" id="email" placeholder="Email" data-validate="require">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step-content has-text-centered">
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Facebook account</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" name="facebook" id="facebook" type="text" placeholder="Facebook account url" autofocus data-validate="require">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field is-horizontal">
+        <div class="field-label is-normal">
+          <label class="label">Twitter account</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control">
+              <input class="input" name="twitter" id="twitter" type="text" placeholder="Twitter account url" autofocus data-validate="require">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="step-content has-text-centered">
+      <h1 class="title is-4">Your account is now created!</h1>
+    </div>
+  </div>
+  <div class="steps-actions">
+    <div class="steps-action">
+      <a href="#" data-nav="previous" class="button is-light">Previous</a>
+    </div>
+    <div class="steps-action">
+      <a href="#" data-nav="next" class="button is-light">Next</a>
+    </div>
+  </div>
+</div>
+
+
+</body>
+
+{% block javascript %}
+
+<script type="text/javascript" src="{% static 'vendor/node_modules/bulma-extensions/bulma-steps/dist/js/bulma-steps.min.js' %}" ></script>
+<script>bulmaSteps.attach();</script>
+{% endblock javascript %}
+</html>    
