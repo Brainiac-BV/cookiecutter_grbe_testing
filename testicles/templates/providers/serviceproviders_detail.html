@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load comments %}
 {% load bootstrap4 %}
 {% bootstrap_javascript jquery='full' %}
 {% block extrahead %}
@@ -141,7 +142,13 @@
     
     </form>
   </div>
-
+   <div class="card profile-card">
+   <div class="card-header"><h4>Request Form</h4></div>
+    {% render_comment_list for object %}
+  </div>
+  <div>
+    {% render_comment_form for object %}
+  </div>
 </div>
 </div>
 <!-- Action buttons --> 

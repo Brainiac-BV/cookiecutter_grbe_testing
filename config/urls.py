@@ -31,6 +31,8 @@ urlpatterns = [
     path("messages/", 
     include("postman.urls", namespace='postman')),
     path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('photologue/', include('photologue.urls', namespace='photologue')),
+    path('comments/', include('django_comments.urls')),
 ] + static(
     settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
 )

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.contrib.postgres.fields import ArrayField
+#from pinax.images.models import ImageSet
 
 import datetime
 from .managers import ProviderServiceManager
@@ -26,6 +27,7 @@ class ServiceProviders(models.Model):
     
     service_categories = models.ManyToManyField('Categories')
     services =  models.ManyToManyField('Services')
+    #portfolio = models.ForeignKey(ImageSet, blank=True, null=True, on_delete=models.CASCADE)
 
     def _get_full_name(self):
         # Returns the person's full name."

@@ -77,6 +77,9 @@ THIRD_PARTY_APPS = [
     'ajax_select',
     'django_filters',
     'notifications',
+    'photologue',
+    'sortedm2m',
+    'django_comments'
 ]
 #SOCIALACCOUNT_PROVIDERS = {'facebook': {}, 'google':{}, 'twitter':{}}
 LOCAL_APPS = [
