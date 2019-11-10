@@ -19,7 +19,7 @@ class ServiceProvidersForm(forms.ModelForm):
         
 
         widgets = {
-            #"service_categories": forms.widgets.SelectMultiple(choices=CATEGORIES)
+            'services': forms.widgets.CheckboxSelectMultiple()
         }
 
 
@@ -46,9 +46,21 @@ class RequestForm(forms.ModelForm):
        }
     
 class ServiceProvidersAdminForm(forms.ModelForm):
+    #services = forms.ModelMultipleChoiceField(
+     #   queryset=Services.objects.all(), required=False)
     class Meta:
         model = ServiceProviders
-        fields = ['user_info', 'about_me', 'short_description', 'service_categories', 'zip_code']
+        fields = ['user_info', 'about_me', 'short_description', 'service_categories', 'zip_code', "services"]
         widgets = {
-            #'service_categories': forms.widgets.SelectMultiple( )
+            'services': forms.widgets.CheckboxSelectMultiple()
         }
+
+class ServicesForm(forms.ModelForm):
+    class Meta:
+        model = Services
+        fields = ['category', 'name', 'description', 'price']
+
+class ServiceChangeListForm(forms.ModelForm):
+    # here we only need to define the field we want to be editable
+    genre = forms.ModelMultipleChoiceField(
+        queryset=Services.objects.all(), required=False)

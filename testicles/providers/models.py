@@ -33,6 +33,9 @@ class ServiceProviders(models.Model):
         # Returns the person's full name."
         return '%s' % (self.user_info.username)
     name = property(_get_full_name)
+
+    def get_absolute_url(self):
+        return reverse("providers:detail", kwargs={"pk": self.pk} )
     
     """
     def _get_services(self):

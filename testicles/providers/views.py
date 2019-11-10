@@ -15,7 +15,7 @@ from .forms import RequestForm, ServiceProvidersForm
 
 class ProviderCreateView(LoginRequiredMixin,CreateView):
     model = ServiceProviders
-    template_name = "providers/provider_signup.html"
+    template_name = "providers/signup2.html"
     form_class = ServiceProvidersForm
     #fields = ["short_description", "about_me", "is_licensed", "service_categories", "zip_code", "services"]
 
@@ -28,11 +28,10 @@ class ProviderCreateView(LoginRequiredMixin,CreateView):
 
 class ProviderView(LoginRequiredMixin, UpdateView):
     model = ServiceProviders
+    form_class = ServiceProvidersForm
     slug_field = "user_info_id"
     slug_url_kwarg = "user_info_id"
-    fields = ["about_me", "service_categories"]
-
-
+    #fields = ["about_me", "service_categories", "services", "short_description", "zip_code", "header_img"]
 
 provider_view = ProviderView.as_view()
 
@@ -139,11 +138,11 @@ class ProviderDashboard(LoginRequiredMixin, DetailView):
     
 class ServiceCreationView(LoginRequiredMixin, CreateView):
     model = Services
-    fields = ["category", "services", "description", "price"]
+    fields = ["category", "description", "price"]
 
     def form_valid(self, form):
         form.save()
-        form.instance.provider.add(self.request.user.pk)
+        form.instance.serviceproviders_set.services.add(self.request.user.pk)
         return super(ServiceCreationView, self).form_valid(form)
 
     def get_success_url(self):

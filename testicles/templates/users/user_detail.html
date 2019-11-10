@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load bootstrap4 %}
+{% bootstrap_javascript jquery='full' %}
 {% block extrahead %}
 
 <link href="{% static 'css/user_dashboard.css' %}" rel="stylesheet">
@@ -17,7 +18,7 @@
                     <div class="user-info">
                         <img class="img-profile img-circle img-responsive center-block" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
                         <ul class="meta list list-unstyled">
-                            <li class="name">Rebecca Sanders
+                            <li class="name">{{ object.username }}
                                 <label class="label label-info">UX Designer</label>
                             </li>
                             <li class="email"><a href="#">Rebecca.S@website.com</a></li>
@@ -25,19 +26,20 @@
                         </ul>
                     </div>
             		<nav class="side-menu">
-        				<ul class="nav">
-        					<li class="active"><a href="#"><span class="fa fa-user"></span> Profile</a></li>
-        					<li><a href="#"><span class="fa fa-cog"></span> Settings</a></li>
-        					<li><a href="#"><span class="fa fa-credit-card"></span> Billing</a></li>
-        					<li><a href="#"><span class="fa fa-envelope"></span> Messages</a></li>
+        				<ul class="nav nav-tabs">
+        					<li class="active"><a data-toggle="tab" href="#tab1"><span class="fa fa-user"></span> Profile</a></li>
+        					<li><a data-toggle="tab" href="#tab2"><span class="fa fa-cog"></span> Settings</a></li>
+        					<li><a data-toggle="tab" href="#tab3"><span class="fa fa-credit-card"></span> Billing</a></li>
+        					<li><a data-toggle="tab" href="#"><span class="fa fa-envelope"></span> Messages</a></li>
         					
-        					<li><a href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
-        					<li><a href="#"><span class="fa fa-clock-o"></span> Reminders</a></li>
+        					<li><a data-toggle="tab" href="user-drive.html"><span class="fa fa-th"></span> Drive</a></li>
+        					<li><a data-toggle="tab" href="#tab5"><span class="fa fa-clock-o"></span> Delete Account</a></li>
         				</ul>
         			</nav>
                 </div>
-                <div class="content-panel">
-                    <h2 class="title">Profile<span class="pro-label label label-warning">PRO</span></h2>
+                <div class="tab-content content-panel">
+                  <h2 class="title">Profile<span class="pro-label label label-warning">PRO</span></h2>
+                    <div id="tab1" class="tab-pane active">
                     <form class="form-horizontal">
                         <fieldset class="fieldset">
                             <h3 class="fieldset-title">Personal Info</h3>
@@ -102,6 +104,23 @@
                         </div>
                     </form>
                 </div>
+                <div id="tab2" class="tab-pane fade">
+                </div>
+                <div id="tab3" class="tab-pane fade">
+                </div>
+                <div id="tab4" class="tab-pane fade">
+                </div>
+                <div id="tab5" class="tab-pane fade">
+                  <div class="card text-center profile-card">
+                  <h5 class="card-header">Delete Account</h5>
+                  <div class="card-body">
+                  <p class="card-text">Use the below link to delete your account</p>
+                  <p class="card-text"><span class="text-danger">Remember that this is permanent!!!</span></p>
+                  <a href="{% url 'users:delete' object %}" class="btn btn-danger btn-lg">Delete</a>
+                </div>
+          </div>
+                </div>
+              </div>  
             </div>
         </section>
     </div>
