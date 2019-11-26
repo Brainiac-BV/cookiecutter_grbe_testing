@@ -9,45 +9,36 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/favicon.ico">
 
-	<title>Material Bootstrap Wizard by Creative Tim</title>
+	<title>Beautician Registration Form</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
 
 	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
-	<link rel="icon" type="image/png" href="assets/img/favicon.png" />
+	<link rel="icon" href="{% static 'images/favicons/favicon.ico' %}">
 
 	<!--     Fonts and icons     -->
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
 	<!-- CSS Files -->
+	<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/material-bootstrap-wizard.css' %}" rel="stylesheet" />
 	
-	<link href="{% static css/material-bootstrap-wizard.css %}" rel="stylesheet" />
-
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link href="assets/css/demo.css" rel="stylesheet" />
 </head>
 
 <body>
-	<div class="image-container set-full-height" style="background-image: url('assets/img/wizard-profile.jpg')">
-	    <!--   Creative Tim Branding   -->
-	    <a href="http://creative-tim.com">
+	<div class="image-container set-full-height" style="background: gold;)">
+	    <a href="">
 	         <div class="logo-container">
 	            <div class="logo">
-	                <img src="{% static img/new_logo.png %}">
+	                <img src="{% static 'img/canva.png' %}">
 	            </div>
 	            <div class="brand">
-	                Creative Tim
 	            </div>
 	        </div>
 	    </a>
 
-		<!--  Made With Material Kit  -->
-		<a href="http://demos.creative-tim.com/material-kit/index.html?ref=material-bootstrap-wizard" class="made-with-mk">
-			<div class="brand">MK</div>
-			<div class="made-with">Made with <strong>Material Kit</strong></div>
-		</a>
 
 	    <!--   Big container   -->
 	    <div class="container">
@@ -55,8 +46,12 @@
 		        <div class="col-sm-8 col-sm-offset-2">
 		            <!--      Wizard container        -->
 		            <div class="wizard-container">
-		                <div class="card wizard-card" data-color="green" id="wizardProfile">
-		                    <form action="" method="">
+		                <div class="card wizard-card" data-color="blue" id="wizardProfile">
+		                    <form action="" method="post">
+							{% csrf_token %}
+							{{ form.non_field_errors }}
+							{{ form.source.errors }}
+  							{{ form.source }}
 		                <!--        You can switch " data-color="purple" "  with one of the next bright colors: "green", "orange", "red", "blue"       -->
 
 		                    	<div class="wizard-header">
@@ -65,11 +60,11 @@
 		                        	</h3>
 									<h5>This information will let us know more about you.</h5>
 		                    	</div>
-								<div class="wizard-navigation">
+								<div class="wizard-navigation nav-tabs">
 									<ul>
-			                            <li><a href="#about" data-toggle="tab">About</a></li>
-			                            <li><a href="#account" data-toggle="tab">Account</a></li>
-			                            <li><a href="#address" data-toggle="tab">Address</a></li>
+			                            <li><a href="#about" data-toggle="tab">Profile</a></li>
+			                            <li><a href="#account" data-toggle="tab">About</a></li>
+			                            <li><a href="#address" data-toggle="tab">Services</a></li>
 			                        </ul>
 								</div>
 
@@ -92,8 +87,9 @@
 														<i class="material-icons">face</i>
 													</span>
 													<div class="form-group label-floating">
-			                                          <label class="control-label">First Name <small>(required)</small></label>
-			                                          <input name="firstname" type="text" class="form-control">
+			                                          <label class="control-label">{{ form.short_description.label_tag }} <small>(required)</small></label>
+			                                          {{ form.short_description.errors }}
+													  <input name="{{ form.short_description.name }}" type="text" class="form-control">
 			                                        </div>
 												</div>
 
@@ -102,8 +98,9 @@
 														<i class="material-icons">record_voice_over</i>
 													</span>
 													<div class="form-group label-floating">
-													  <label class="control-label">Last Name <small>(required)</small></label>
-													  <input name="lastname" type="text" class="form-control">
+													  	<label class="control-label">{{ form.zip_code.label_tag }} <small>(required)</small></label>
+			                                            {{ form.zip_code.errors }}
+														<input name="{{ form.zip_code.html_name }}" type="email" class="form-control">
 													</div>
 												</div>
 		                                	</div>
@@ -113,8 +110,9 @@
 														<i class="material-icons">email</i>
 													</span>
 													<div class="form-group label-floating">
-			                                            <label class="control-label">Email <small>(required)</small></label>
-			                                            <input name="email" type="email" class="form-control">
+														<label class="control-label">{{ form.about_me.label_tag }} <small>(required)</small></label>
+			                                          	{{ form.about_me.errors }}
+														<textarea name="{{ form.about_me.name }}" class="md-textarea form-control"></textarea>
 			                                        </div>
 												</div>
 		                                	</div>
@@ -146,10 +144,11 @@
 		                                            <div class="choice" data-toggle="wizard-checkbox">
 		                                                <input type="checkbox" name="jobb" value="Develop">
 		                                                <div class="icon">
-		                                                    <i class="fa fa-laptop"></i>
+		                                                    <i class="fa fa-cut"></i>
 		                                                </div>
 		                                                <h6>Develop</h6>
 		                                            </div>
+													{{ form.services }}
 		                                        </div>
 		                                    </div>
 		                                </div>
@@ -199,7 +198,7 @@
 		                        <div class="wizard-footer">
 		                            <div class="pull-right">
 		                                <input type='button' class='btn btn-next btn-fill btn-success btn-wd' name='next' value='Next' />
-		                                <input type='button' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' />
+		                                <button type='submit' class='btn btn-finish btn-fill btn-success btn-wd' name='finish' value='Finish' ></button>
 		                            </div>
 
 		                            <div class="pull-left">
@@ -216,17 +215,20 @@
 
 	    <div class="footer">
 	        <div class="container text-center">
-	             Made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>. Free download <a href="http://www.creative-tim.com/product/bootstrap-wizard">here.</a>
+	             Made with <i class="fa fa-heart heart"></i> by <a href="http://www.creative-tim.com">Creative Tim</a>.
 	        </div>
 	    </div>
 	</div>
 
 </body>
-
+{% block javascript %}
+	
+	<script src="{% static 'js/jquery.bootstrap.js' %}"></script>
 	<!--  Plugin for the Wizard -->
-	<script src="assets/js/material-bootstrap-wizard.js"></script>
+	<script src="{% static 'js/material-bootstrap-wizard.js' %}"></script>
 
     <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
-	<script src="assets/js/jquery.validate.min.js"></script>
-
+	<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+	
+{% endblock javascript %}
 </html>
