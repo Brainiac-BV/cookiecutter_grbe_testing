@@ -77,7 +77,7 @@ THIRD_PARTY_APPS = [
     'ajax_select',
     'django_filters',
     'notifications',
-    'photologue',
+    #'photologue',
     'sortedm2m',
     'reviews'
 ]
